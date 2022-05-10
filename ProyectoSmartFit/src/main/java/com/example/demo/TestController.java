@@ -18,4 +18,16 @@ public class TestController {
 	public String home() {
 		return "home";
 	}
+	
+	@GetMapping("/crearColaborador")
+	public String crearColaborador()
+	{
+		return "crearColaborador";
+	}
+	@GetMapping("/crearAdministrador")
+	public String crearAdministrador()
+	{
+		return "crearAdministrador";
+	}
+	
 }
