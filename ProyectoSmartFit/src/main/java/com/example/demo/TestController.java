@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	
 	
-	@RequestMapping("/")
+	@RequestMapping("/login")
 	public String login() {
 		return "login";
 	}
@@ -30,4 +30,21 @@ public class TestController {
 		return "crearAdministrador";
 	}
 	
+	@GetMapping("/crearSala")
+	public String crearSala()
+	{
+		return "crearSala";
+	}
+	
+	@GetMapping("/crearSede")
+	public String crearSede()
+	{
+		return "crearSede";
+	}
+	
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion()
+	{
+		return "login";
+	}
 }
