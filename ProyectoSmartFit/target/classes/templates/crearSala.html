@@ -11,7 +11,7 @@
 
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala</h2>
 			
-			<form class="row g-3 needs-validation" method="POST" novalidate> 
+			<form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearSede}" action="#" th:object="${super}"> 
 
                         <div class="col-md-4">
                             <label  class="form-label">Nombre de Sede:</label>

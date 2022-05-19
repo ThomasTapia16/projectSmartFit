@@ -10,29 +10,32 @@
 		<div class="col bg-white p-5 rounded">
 
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sede</h2>
-			<form class="row g-3 needs-validation" method="POST" novalidate>
+			<form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearSede}" action="#" th:object="${sede}">
 
                         <div class="col-md-4">
-							<label class="form-label">Region:</label>
-						  	<select class="form-select" id="region" required>
+							<label class="form-label" >Region:</label>
+						  	<select class="form-select"  required th:field="*{region}" >
 						    	<option selected disabled value="">Seleccione...</option>
-						    	<option>Región Metropolitana  de Santiago</option>
-						   		<option>I Región de Tarapacá</option>
-						   		<option>II Región de Antofagasta</option>
-						   		<option>III Región de Atacama</option>
-						   		<option>IV Región de Coquimbo</option>
-						   		<option>V Región de Valparaíso</option>
-						   		<option>VI Región del Libertador General Bernardo O'Higgins</option>
-						   		<option>VII Región de Maule</option>
-						   		<option>VIII Región de BioBío</option>
-						   		<option>IX Región de La Araucanía</option>
-						   		<option>X Región de Los Lagos</option>
-						   		<option>XI Región de Aysén del General Carlos Ibáñez del Campo</option>
-						   		<option>XII Región de Magallanes y Antártica Chilena</option>
-						   		<option>XIV Región de los Ríos</option>
-						   		<option>XV Región de Arica Y Parinacota </option>
-						   		<option>XVI Región de Ñuble</option>
-						   		<option>🍆🍆</option>
+						    	<option th:value="'15'" th:text="'ARICA Y PARINACOTA'"> </option>
+						    	<option th:value="'1'" th:text="TARAPACÁ"></option>
+						    	<option th:value="'2'" th:text="ANTOFAGASTA"></option>
+						    	<option th:value="'3'" th:text="ATACAMA"></option>
+						    	<option th:value="'4'" th:text="COQUIMBO"></option>
+						    	<option th:value="'5'" th:text="VALPARAÍSO"></option>
+						    	<option th:value="'RM'" th:text="METROPOLITANA"></option>
+								<option th:value="'6'" th:text="'OHIGGINS'"></option>
+						   		<option th:value="'7'" th:text="MAULE"></option>
+						   		<option th:value="'16'" th:text="'ÑUBLE'"></option>
+						   		<option th:value="'8'" th:text="BIOBÍO"></option>
+						   		<option th:value="'9'" th:text="ARAUCANÍA"></option>
+						   		<option th:value="'14'" th:text="'LOS RÍOS'"></option>
+						   		<option th:value="'10'" th:text="'LOS LAGOS'"></option>
+						   		<option th:value="'11'" th:text="'AYSÉN DEL GENERAL CARLOS IBAÑEZ DEL CAMPO'"></option>
+						   		<option th:value="'12'" th:text="'MAGALLANES Y LA ANTÁRTICA CHILENA'"></option>
+						   		
+						   		
+						   		
+						   	
 						  	</select>
 						  	<div class="valid-feedback">
                                 Correcto
@@ -44,7 +47,7 @@
                         
                         <div class="col-md-4">
                             <label  class="form-label">Comuna:</label>
-                            <input type="text" class="form-control" id="comuna" value="" required>
+                            <input type="text" class="form-control" id="comuna" value="" required th:field="*{ciudad}">
                             <div class="valid-feedback">
                                 Correcto!
                             </div>
@@ -55,7 +58,7 @@
                         
                         <div class="col-md-4">
                             <label  class="form-label">Nombre Sede:</label>
-                            <input type="text" class="form-control" id="sede" value="" required>
+                            <input type="text" class="form-control" id="sede" value="" required th:field="*{nombre}">
                             <div class="valid-feedback">
                                 Correcto!
                             </div>

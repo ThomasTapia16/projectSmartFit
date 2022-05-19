@@ -11,11 +11,11 @@
                     
                     <h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nuevo Administrador </h2>
     
-                    <form class="row g-3 needs-validation" method="POST" novalidate>
+                    <form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearAdministrador}" action="#" th:object="${admin}">
 
                         <div class="col-md-4">
                             <label  class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="" required>
+                            <input type="text" class="form-control" id="nombre" value="" required th:field="*{nombre}">
                             <div class="valid-feedback">
                                 Correcto!
                             </div>
@@ -26,7 +26,7 @@
 
                         <div class="col-md-4">
                             <label  class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" value="" required>
+                            <input type="text" class="form-control" id="apellido" value="" required th:field="*{apellido}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
@@ -37,7 +37,7 @@
 
                         <div class="col-md-4">
                             <label  class="form-label">Rut</label>
-                            <input type="text" class="form-control" id="rut" value="" required>
+                            <input type="text" class="form-control" id="rut" value="" required th:field="*{rut}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
@@ -46,24 +46,20 @@
                             </div>
                         </div>
 
-		               	<div class="col-md-3">
-							<label class="form-label">Permiso</label>
-						  	<select class="form-select" id="Permiso" required>
-						    	<option selected disabled value="">Seleccione...</option>
-						   		<option>Admin</option>
-						   		<option>SuperAdmin</option>
-						  	</select>
-						  	<div class="valid-feedback">
+		               	<!---<div class="col-md-4">
+                            <label  class="form-label">Permiso</label>
+                            <input type="text" class="form-control" id="rut" value="A" required>
+                            <div class="valid-feedback">
                                 Correcto
                             </div>
-						  	<div class="invalid-feedback">
-						    	Please select a valid state.
-						  	</div>
-						</div>
+                            <div class="invalid-feedback">
+                                Ingrese datos validos
+                            </div>
+                        </div> -->
 
                         <div class="col-md-4">
                             <label  class="form-label">Correo</label>
-                            <input type="email" class="form-control" id="correo" value="" required>
+                            <input type="email" class="form-control" id="correo" value="" required th:field="*{correo}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
@@ -74,7 +70,7 @@
 
                         <div class="col-md-4">
                             <label  class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="contrasena" value="" required>
+                            <input type="password" class="form-control" id="contrasena" value="" required th:field="*{pwd}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
