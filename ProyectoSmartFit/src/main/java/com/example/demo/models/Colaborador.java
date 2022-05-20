@@ -10,6 +10,10 @@ import javax.persistence.Table;
 
 
 
+/**
+ * @author thoma
+ *
+ */
 @Entity
 @Table(name=" Colaboradores")
 public class Colaborador extends Persona{
@@ -17,11 +21,24 @@ public class Colaborador extends Persona{
 
 	@ManyToOne
 	private Sede sede;
-	private Boolean es_ecargado;//agregar a constructors
-	public Colaborador(String rut, String nombre, String apellido, String correo, String pwd) {
-		super(rut, nombre, apellido, correo, pwd);
-		
+	private boolean es_ecargado;//ENCARGADO
+	public Colaborador() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+	public boolean isEs_ecargado() {
+		return es_ecargado;
+	}
+	public void setEs_ecargado(boolean es_ecargado) {
+		this.es_ecargado = es_ecargado;
+	}
+	public Sede getSede() {
+		return sede;
+	}
+	public void setSede(Sede sede) {
+		this.sede = sede;
+	}
+	
 	
 	
 	

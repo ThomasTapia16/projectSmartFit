@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue("SM")
 public class SalaMusculacion extends Sala{
 
-	public SalaMusculacion(Long id, int numero_sala, Sede sede, Piso piso) {
-		super(id, numero_sala, sede, piso);
+	public SalaMusculacion() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 	
 }

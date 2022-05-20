@@ -11,10 +11,12 @@ public class SalaEntrenamientoMasivo extends Sala{
 	
 	@ManyToOne
 	private Clase clase;
-	public SalaEntrenamientoMasivo(Long id, int numero_sala, Sede sede, Piso piso) {
-		super(id, numero_sala, sede, piso);
+
+	public SalaEntrenamientoMasivo() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	
 	

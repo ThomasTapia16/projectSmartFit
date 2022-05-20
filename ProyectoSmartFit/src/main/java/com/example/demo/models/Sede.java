@@ -10,7 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.stereotype.Component;
+
+import com.example.demo.repositories.SedeRepository;
+
 @Entity
+@Component
 public class Sede {
 	
 	@Id
@@ -27,9 +32,19 @@ public class Sede {
 	private Colaborador encargado;
 	@OneToMany(targetEntity=Colaborador.class)
 	private List<Colaborador> colaboradores;
+	private int npisos;
 	public Sede() {
 		super();
 	}
+	
+	public Sede(long id, String nombre, String region, String ciudad) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.region = region;
+		this.ciudad = ciudad;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -54,7 +69,30 @@ public class Sede {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
+
+	public List<Colaborador> getColaboradores() {
+		return colaboradores;
+	}
+
+	public void setColaboradores(Colaborador colaboradores) {
+		this.colaboradores.add(colaboradores);
+	}
+
+	public Colaborador getEncargado() {
+		return encargado;
+	}
+
+	public void setEncargado(Colaborador encargado) {
+		this.encargado = encargado;
+	}
+
+	public int getNpisos() {
+		return npisos;
+	}
+
+	public void setNpisos(int npisos) {
+		this.npisos = npisos;
+	}
 	
 	
 }

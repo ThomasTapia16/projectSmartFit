@@ -18,15 +18,41 @@ public abstract class Persona {
 	private String apellido;
 	private String correo;
 	private String pwd;
-	
-	public Persona(String rut, String nombre, String apellido, String correo, String pwd) {
+	public Persona() {
 		super();
+	}
+	public String getRut() {
+		return rut;
+	}
+	public void setRut(String rut) {
 		this.rut = rut;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	
 	
 	
 }

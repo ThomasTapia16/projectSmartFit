@@ -9,24 +9,27 @@
 
 		<div class="col bg-white p-5 rounded">
 
-			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala</h2>
+			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala de Entrenamiento Masivo</h2>
 			
-			<form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearSede}" action="#" th:object="${super}"> 
+			<form class="row g-3 needs-validation" method="POST" novalidate  th:action="@{/crearSalaEntrenamientoMasivo}" th:object="${sala}" action="#"> 
 
                         <div class="col-md-4">
-                            <label  class="form-label">Nombre de Sede:</label>
-                            <input type="text" class="form-control" id="comuna" value="" required>
-                            <div class="valid-feedback">
-                                Correcto!
+                            <label class="form-label">Sede</label>
+                            <select  class="form-select" id="Permiso" required th:field="*{sede}">
+                               
+                                <option  th:each="sede:${sedes}" th:value="${sede.id}" th:text="${sede.nombre}"></option>
+                              </select>
+                        <div class="valid-feedback">
+                                Correcto
                             </div>
-                            <div class="invalid-feedback">
-                                Ingrese datos validos
-                            </div>
-                        </div>             
+                              <div class="invalid-feedback">
+                                Please select a valid state.
+                              </div>
+                        </div>          
                       
                         <div class="col-md-4">
                             <label  class="form-label">Número de Sala:</label>
-                            <input type="text" class="form-control" id="numeroSede" value="" required>
+                            <input type="text" class="form-control" id="numeroSede" value="" required th:field="*{numero_sala}">
                             <div class="valid-feedback">
                                 Correcto!
                             </div>
@@ -37,7 +40,7 @@
                         
                         <div class="col-md-4">
                             <label  class="form-label">Número Piso:</label>
-                            <input type="text" class="form-control" id="numeroPiso" value="" required>
+                            <input type="text" class="form-control" id="numeroPiso" value="" required th:field="*{piso}"> 
                             <div class="valid-feedback">
                                 Correcto!
                             </div>
@@ -45,28 +48,11 @@
                                 Ingrese datos validos
                             </div>
                         </div>
-                        
-                        <div class="col-md-4">
-							<label class="form-label">Tipo de Sala:</label>
-						  	<select class="form-select" id="tipoSala" required>
-						    	<option selected disabled value="">Seleccione...</option>
-						    	<option> Sala Musculacion</option>
-						   		<option> Sala Entrenamiento Masivo</option>
-						   		<option> Recepcion</option>
-						  	</select>
-						  	<div class="valid-feedback">
-                                Correcto
-                            </div>
-						  	<div class="invalid-feedback">
-						    	Please select a valid state.
-						  	</div>
-						</div>
-                        
+                                                                        
                         <div class="col-12">
                           <button class="btn btn-dark" type="submit">Registrar</button>
                         </div>
             </form>
-    
 
 		</div>
 
