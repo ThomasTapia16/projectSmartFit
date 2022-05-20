@@ -25,6 +25,7 @@ public abstract class Sala {
 	private Sede sede;
 	@ManyToOne
 	private Piso piso;
+	
 	public Sala() {
 		super();
 	}
