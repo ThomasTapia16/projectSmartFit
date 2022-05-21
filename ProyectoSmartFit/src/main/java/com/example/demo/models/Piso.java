@@ -25,7 +25,7 @@ public class Piso {
 	private List<Sala> salas;
 	private int npiso;
 	
-	
+	public Piso() {};
 	public Piso(Sede s,int npiso) {
 		super();
 		this.sede = s;
@@ -70,6 +70,12 @@ public class Piso {
 
 	public void setSalas(List<Sala> salas) {
 		this.salas = salas;
+	}
+	public int getNpiso() {
+		return npiso;
+	}
+	public void setNpiso(int npiso) {
+		this.npiso = npiso;
 	}
 	
 	
