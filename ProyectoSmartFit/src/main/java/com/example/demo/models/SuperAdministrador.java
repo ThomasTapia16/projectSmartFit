@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 
-public class SuperAdministrador extends DTI{
+public class SuperAdministrador extends Persona{
 
 	
 
@@ -14,13 +14,5 @@ public class SuperAdministrador extends DTI{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setPermiso() {
-		
-		this.permiso = 'S';
-	}
-	public char getPermiso()
-	{
-		return this.permiso;
-	}
-
+	
 }

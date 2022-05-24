@@ -9,23 +9,10 @@
             
                 <div class="col bg-white p-5 rounded">
                     
-                    <h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nuevo Colaborador </h2>
+                    <h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nuevo Super Administrador </h2>
     
-                    <form class="row g-3 needs-validation" method="POST" novalidate th:action="@{/crearColaborador}" th:object="${colaborador}" action="#">
-						
-						<div class="col-md-4">
-                            <label class="form-label">Sede</label>
-                            <select  class="form-select" id="Permiso" required th:field="*{sede}">
-                               
-                                <option  th:each="sede:${sedes}" th:value="${sede.id}" th:text="${sede.nombre}"></option>
-                              </select>
-                        <div class="valid-feedback">
-                                Correcto
-                            </div>
-                              <div class="invalid-feedback">
-                                Please select a valid state.
-                              </div>
-                        </div>
+                    <form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearSuperAdministrador}" action="#" th:object="${super}">
+
                         <div class="col-md-4">
                             <label  class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="nombre" value="" required th:field="*{nombre}">
@@ -39,7 +26,7 @@
 
                         <div class="col-md-4">
                             <label  class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" value="" required th:field="*{apellido}"}>
+                            <input type="text" class="form-control" id="apellido" value="" required th:field="*{apellido}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
@@ -59,23 +46,17 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-							<label class="form-label">Cargo</label>
-						  	<select class="form-select" id="Permiso" required>
-						    	<option selected disabled value="">Seleccione...</option>
-						   		<option th:value="'profesor'" th:text="'Profesor'">Profesor</option>
-						   		<option th:value="'preparador fisico'"th:text="'Preparador Físico'"></option>
-						   		<option th:value="'personal trainer'"th:text="'Personal Trainer'"></optionth>
-								<option th:value="'coordinador zumba'"th:text="'Coordinador Zumba'"></option>
-						  	</select>
-						  	<div class="valid-feedback">
+		               <!--	<div class="col-md-4">
+                            <label  class="form-label">Permiso</label>
+                            <input type="text" class="form-control" id="rut" value="S" required>
+                            <div class="valid-feedback">
                                 Correcto
                             </div>
-						  	<div class="invalid-feedback">
-						    	Please select a valid state.
-						  	</div>
-						</div>
-
+                            <div class="invalid-feedback">
+                                Ingrese datos validos
+                            </div>
+                      </div>
+-->  
                         <div class="col-md-4">
                             <label  class="form-label">Correo</label>
                             <input type="email" class="form-control" id="correo" value="" required th:field="*{correo}">
@@ -97,16 +78,9 @@
                                 Ingrese datos validos
                             </div>
                         </div> 
-                        <div class="form-check form-switch col-md-4">
                         
-                        <br>
-                        
-                              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" th:field="*{es_ecargado}" }>
-                              
-                             <label class="form-check-label" for="flexSwitchCheckDefault">Encargado</label>
-                        </div>
                         <div class="col-12">
-                          <button class="btn btn-warning" type="submit">Registrar</button>
+                          <button class="btn btn-dark" type="submit">Registrar</button>
                         </div>
                     </form>
     

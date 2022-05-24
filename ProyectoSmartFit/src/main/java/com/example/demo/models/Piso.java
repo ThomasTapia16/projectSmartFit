@@ -19,8 +19,8 @@ public class Piso {
 	private Long id;
 	@ManyToOne
 	private Sede sede;
-	@OneToMany(targetEntity=Colaborador.class)
-	private List<Colaborador> encargado;
+	@OneToMany(targetEntity=Persona.class)
+	private List<Persona> encargado;
 	@OneToMany(targetEntity=Sala.class)
 	private List<Sala> salas;
 	private int npiso;
@@ -53,12 +53,12 @@ public class Piso {
 	}
 
 
-	public List<Colaborador> getEncargado() {
+	public List<Persona> getEncargado() {
 		return encargado;
 	}
 
 
-	public void setEncargado(List<Colaborador> encargado) {
+	public void setEncargado(List<Persona> encargado) {
 		this.encargado = encargado;
 	}
 

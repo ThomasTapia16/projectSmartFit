@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 
-public class Administrador extends DTI{
+public class Administrador extends Persona{
 
 	
 
@@ -14,13 +14,6 @@ public class Administrador extends DTI{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setPermiso()
-	{
-		this.permiso = 'A';
-	}
-	public char getPermiso()
-	{
-		return this.permiso;
-	}
+	
 
 }

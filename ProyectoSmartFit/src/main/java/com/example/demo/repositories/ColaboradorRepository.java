@@ -1,15 +1,11 @@
 package com.example.demo.repositories;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
-import com.example.demo.models.Persona;
-import com.example.demo.models.Sede;
+import com.example.demo.models.Colaborador;
 
-@Repository
-public interface ColaboradorRepository extends JpaRepository<Persona,String>{
+public interface colaboradorRepository extends JpaRepository<Colaborador,Long>{
 	
-	
+	Long findByRut(String rut);
 }

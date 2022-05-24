@@ -1,3 +1,4 @@
+
 package com.example.demo.controller;
 
 
@@ -17,15 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.models.Administrador;
 import com.example.demo.models.Colaborador;
+import com.example.demo.models.Persona;
 import com.example.demo.models.Piso;
-import com.example.demo.models.Sala;
 import com.example.demo.models.SalaEntrenamientoMasivo;
 import com.example.demo.models.SalaMusculacion;
 import com.example.demo.models.Sede;
 import com.example.demo.models.SuperAdministrador;
-import com.example.demo.repositories.ColaboradorRepository;
-import com.example.demo.repositories.DtiRepository;
+import com.example.demo.repositories.colaboradorRepository;
+import com.example.demo.repositories.PersonaRepository;
 import com.example.demo.repositories.PisoRepository;
+import com.example.demo.repositories.RolRepository;
 import com.example.demo.repositories.SalaRepository;
 import com.example.demo.repositories.SedeRepository;
 import com.example.demo.services.sedeS;
@@ -35,24 +37,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class MainController {
 	
-		
-	@RequestMapping("/")
-	public String login() {
-		return "login";
-	}
-	
-	@GetMapping("/home")
-	public String home() {
-		return "home";
-	}
-	
-	
-	
-	
-	@Autowired 
-    DtiRepository dti;
 	@Autowired
-	ColaboradorRepository colaboradorR;
+	PersonaRepository personaR;
+	
 	@Autowired
 	SedeRepository sedeR;
 	@Autowired
@@ -61,6 +48,18 @@ public class MainController {
 	PisoRepository pisoR;
 	@Autowired
 	sedeS sedeS;
+
+	@RequestMapping("/")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/home")
+	public String home() {
+		
+		return "home";
+	}
+	
 	
 	 @GetMapping("/crearAdministrador")
 	 public String newAdmin(Model model) {
@@ -74,8 +73,8 @@ public class MainController {
 	   @PostMapping("/crearAdministrador")
 	    public String saveAdmin(@ModelAttribute("admin") Administrador a) {
 	        
-		   a.setPermiso();
-	        dti.save(a);
+		  
+		   personaR.save(a);
 	        
 	        return "redirect:/crearAdministrador";
 	    }
@@ -91,8 +90,8 @@ public class MainController {
 	 @PostMapping("/crearSuperAdministrador")
 	    public String saveSAdmin(@ModelAttribute("super") SuperAdministrador sa) {
 	        
-		 	sa.setPermiso();
-	        dti.save(sa);
+		 	
+	        personaR.save(sa);
 	        return "redirect:/crearSuperAdministrador";
 	    }
 	 
@@ -158,15 +157,41 @@ public class MainController {
 	 		salaR.save(sala);
 	 		return "redirect:/crearSalaMusculacion";
 	 }
-	 	//---------------------------------------------------------------------------------
-	    @GetMapping("/crearSalaEntrenamientoMasivo")
-	    public String crearEntrenamientoMasivo(Model model)
-	   {	List<Sede> sedes = (List<Sede>)sedeR.findAll();
-	   		SalaEntrenamientoMasivo sala = new SalaEntrenamientoMasivo();
-	    	model.addAttribute("sala", sala);
-	    	model.addAttribute("sedes",sedes);
-	        return "crearSalaEntrenamientoMasivo";
-	    }
+	 	//---------------------------------Entrenamiento Masivo------------------------------------------------
+	 	 @GetMapping("/crearSalaEntrenamientoMasivo")
+		    public String crearSalaEM(Model model)
+		    {	
+		    	SalaEntrenamientoMasivo sala = new SalaEntrenamientoMasivo();
+		    	Piso piso = new Piso(); 
+		    	Sede sede = new Sede();
+			 	model.addAttribute("sala", sala);
+			 	model.addAttribute("region",sedeS.findRegiones());
+			 	model.addAttribute("piso",piso);
+			 	model.addAttribute("sede",sede);
+			 	
+			
+		        return "crearSalaEntrenamientoMasivo";
+		    }
+		 	
+		 	@PostMapping("/crearSalaEntrenamientoMasivo")
+		 	public String saveSalaEM(@ModelAttribute("sala") SalaEntrenamientoMasivo sala,@ModelAttribute("sede") Sede sede,@ModelAttribute("piso") Piso piso)
+		 	{
+		 		
+				System.out.println(sede.getNombre());
+				System.out.println(piso.getNpiso());
+				Sede sedeSave = sedeR.getById(sedeR.idSede(sede.getNombre()));
+				Piso pisoSave = pisoR.getById(pisoR.idPiso(sede.getNombre(), piso.getNpiso()));
+				
+				System.out.println(pisoSave.getId());
+				sala.setSede(sedeSave);
+				sala.setPiso(pisoSave);
+		 		salaR.save(sala);
+		 		System.out.println("guardado");
+		 		return "redirect:/crearSalaEntrenamientoMasivo";
+		 }
+	    
+	   
+	    //-----------------------------------------------------------------Sedes--------------------------------------
 	 @GetMapping("/crearSede")
 		public String newSede(Model model)
 		{	Sede sede = new Sede();
@@ -194,6 +219,7 @@ public class MainController {
 	@GetMapping("/crearColaborador")
 	public String crearColaborador(Model model)
 	{	
+		System.out.println(personaR.count());
 		
 		List<Sede> sedes = (List<Sede>)sedeR.findAll();
 		Colaborador col = new Colaborador();
@@ -211,7 +237,7 @@ public class MainController {
 		 sede.setColaboradores(col);
 		 
 		 
-		 colaboradorR.save(col);
+		 personaR.save(col);
 		 if(col.isEs_ecargado())
 		 {
 			 sede.setEncargado(col);
@@ -226,5 +252,10 @@ public class MainController {
 		{	
 			return "login";
 		}
+	 @GetMapping("/salaSeleccionada")
+	    public String salaSeleccionada()
+	    {
+	        return "salaSeleccionada";
+	    }
 	 
 }

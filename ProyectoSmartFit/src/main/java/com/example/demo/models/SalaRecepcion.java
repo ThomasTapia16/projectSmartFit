@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("R")
 public class SalaRecepcion extends Sala{
-	private LinkedList<Colaborador> encargadosRecepcion = new LinkedList<>();
+	private LinkedList<Persona> encargadosRecepcion = new LinkedList<>();
 	
 
 	

@@ -29,9 +29,9 @@ public class Sede {
 	@OneToMany(targetEntity=Piso.class)
 	private List<Piso> pisos;
 	@OneToOne
-	private Colaborador encargado;
-	@OneToMany(targetEntity=Colaborador.class)
-	private List<Colaborador> colaboradores;
+	private Persona encargado;
+	@OneToMany(targetEntity=Persona.class)
+	private List<Persona> colaboradores;
 	private int npisos;
 	public Sede() {
 		super();
@@ -70,19 +70,19 @@ public class Sede {
 		this.ciudad = ciudad;
 	}
 
-	public List<Colaborador> getColaboradores() {
+	public List<Persona> getColaboradores() {
 		return colaboradores;
 	}
 
-	public void setColaboradores(Colaborador colaboradores) {
+	public void setColaboradores(Persona colaboradores) {
 		this.colaboradores.add(colaboradores);
 	}
 
-	public Colaborador getEncargado() {
+	public Persona getEncargado() {
 		return encargado;
 	}
 
-	public void setEncargado(Colaborador encargado) {
+	public void setEncargado(Persona encargado) {
 		this.encargado = encargado;
 	}
 
