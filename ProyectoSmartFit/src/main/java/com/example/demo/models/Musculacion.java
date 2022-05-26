@@ -1,19 +1,13 @@
 package com.example.demo.models;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+public class Musculacion extends Sala{
 
-public class Administrador extends Persona{
-
-	
-
-	public Administrador() {
+	public Musculacion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 }

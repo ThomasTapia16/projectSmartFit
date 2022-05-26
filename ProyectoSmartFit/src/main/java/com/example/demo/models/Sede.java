@@ -1,21 +1,15 @@
 package com.example.demo.models;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import org.springframework.stereotype.Component;
-
-import com.example.demo.repositories.SedeRepository;
 
 @Entity
-@Component
 public class Sede {
 	
 	@Id
@@ -24,30 +18,25 @@ public class Sede {
 	private String nombre;
 	private String region;
 	private String ciudad;
-	@OneToMany(targetEntity=Sala.class)
-	private List<Sala> salas;
-	@OneToMany(targetEntity=Piso.class)
-	private List<Piso> pisos;
-	@OneToOne
-	private Persona encargado;
-	@OneToMany(targetEntity=Persona.class)
-	private List<Persona> colaboradores;
 	private int npisos;
+	@Column(name="colaborador")
+	@OneToMany(targetEntity=Colaborador.class)
+	private List<Colaborador> colaboradoresSede;
+	@Column(name="sala")
+	@OneToMany(targetEntity=Sala.class)
+	private List<Sala> salasSede;
+	@Column(name="piso")
+	@OneToMany(targetEntity=Piso.class)
+	private List<Piso> pisosSede;
+	
+	
 	public Sede() {
 		super();
 	}
-	
-	public Sede(long id, String nombre, String region, String ciudad) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.region = region;
-		this.ciudad = ciudad;
-	}
-
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -69,29 +58,29 @@ public class Sede {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-
-	public List<Persona> getColaboradores() {
-		return colaboradores;
+	public List<Colaborador> getColaboradoresSede() {
+		return colaboradoresSede;
 	}
-
-	public void setColaboradores(Persona colaboradores) {
-		this.colaboradores.add(colaboradores);
+	public void setColaboradoresSede(List<Colaborador> colaboradoresSede) {
+		this.colaboradoresSede = colaboradoresSede;
 	}
-
-	public Persona getEncargado() {
-		return encargado;
+	public List<Sala> getSalasSede() {
+		return salasSede;
 	}
-
-	public void setEncargado(Persona encargado) {
-		this.encargado = encargado;
+	public void setSalasSede(List<Sala> salasSede) {
+		this.salasSede = salasSede;
 	}
-
 	public int getNpisos() {
 		return npisos;
 	}
-
 	public void setNpisos(int npisos) {
 		this.npisos = npisos;
+	}
+	public List<Piso> getPisosSede() {
+		return pisosSede;
+	}
+	public void setPisosSede(List<Piso> pisosSede) {
+		this.pisosSede = pisosSede;
 	}
 	
 	

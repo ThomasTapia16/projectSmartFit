@@ -1,45 +1,35 @@
 package com.example.demo.models;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-
-
-/**
- * @author thoma
- *
- */
 @Entity
-@Table(name=" Colaboradores")
-public class Colaborador extends Persona{
+public class Colaborador extends User{
 	
-
 	@ManyToOne
 	private Sede sede;
-	private boolean es_ecargado;//ENCARGADO
+	private boolean es_encargado;
+	
+	public boolean isEs_encargado() {
+		return es_encargado;
+	}
+
+	public void setEs_encargado(boolean es_encargado) {
+		this.es_encargado = es_encargado;
+	}
+
 	public Colaborador() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.rol = "ROLE_COL";
 	}
-	public boolean isEs_ecargado() {
-		return es_ecargado;
-	}
-	public void setEs_ecargado(boolean es_ecargado) {
-		this.es_ecargado = es_ecargado;
-	}
+
 	public Sede getSede() {
 		return sede;
 	}
+
 	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
-	
-	
-	
 	
 }

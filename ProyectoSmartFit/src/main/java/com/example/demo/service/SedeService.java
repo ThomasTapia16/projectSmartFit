@@ -1,14 +1,14 @@
-package com.example.demo.services;
+package com.example.demo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repositories.SedeRepository;
+import com.example.demo.repositorio.SedeRepository;
 
 @Service
-public class sedeS {
+public class SedeService {
 	
 	@Autowired
 	SedeRepository sedeR;

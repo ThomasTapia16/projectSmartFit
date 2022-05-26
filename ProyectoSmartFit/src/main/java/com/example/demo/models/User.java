@@ -1,21 +1,18 @@
 package com.example.demo.models;
-
+import org.springframework.data.domain.Pageable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="usuarios")
-public abstract class Persona {
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Table(name="users")
+public abstract class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,42 +21,77 @@ public abstract class Persona {
 	private String nombre;
 	private String apellido;
 	private String correo;
-	private String pwd;
+	private String password;
+	protected String rol;
+	private boolean enabled;
 	
-	public Persona() {
-		super();
+	public User() {
+		this.enabled = true;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getRut() {
 		return rut;
 	}
+
 	public void setRut(String rut) {
 		this.rut = rut;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getApellido() {
 		return apellido;
 	}
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public String getCorreo() {
 		return correo;
 	}
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
 	
 	
 	

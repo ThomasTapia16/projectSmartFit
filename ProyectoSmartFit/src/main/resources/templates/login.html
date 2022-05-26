@@ -27,7 +27,7 @@
                 </div>
                 <h2 class="fw-bold text-center py5"> Bienvenido </h2>
 
-                <form action="home" class="needs-validation" novalidate>     
+                <form action="home" class="needs-validation" novalidate th:action="@{/login}" method="post">     
                  <!--   <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="nombreyapellido" placeholder="Nombre y apellido" required>
                         <label for="floatingInput">Nombre y Apellido</label>
@@ -40,7 +40,7 @@
                     </div>
                     -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="rut" placeholder="rut" required>
+                        <input type="text" class="form-control" id="rut" placeholder="rut" required name="username">
                         <label for="floatingInput">Rut</label>
                         <div class="valid-feedback">
                             Datos ingresados corectamente
@@ -49,6 +49,7 @@
                             Ingrese datos validos
                         </div>
                     </div>
+                    <!--
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="correo" placeholder="name@example.com" required> 
                         <label for="floatingInput">Correo</label>
@@ -59,8 +60,9 @@
                             Ingrese datos validos
                         </div>
                     </div>
+                    -->
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="contrasena" placeholder="password" required>
+                        <input type="password" class="form-control" id="contrasena" placeholder="password" required name="password">
                         <label for="floatingPassword">Contraseña</label>
                         <div class="valid-feedback">
                             Datos ingresados corectamente
@@ -82,8 +84,15 @@
                     <div class="my-3 text-center ">
                         <span><a  class="text-dark" href="#"> Recuperar Contraseña </a></span>
                     </div>
-                </form>
+                    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+		            Invalid username and password.
+		        </div>
+		        <div th:if="${param.logout}" class="alert alert-success" role="alert">
+		            You have been logged out.
+		        </div>
 
+                </form>
+                
             </div>
         </div>
     </div>

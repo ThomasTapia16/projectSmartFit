@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,66 +17,39 @@ public class Piso {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 	@ManyToOne
 	private Sede sede;
-	@OneToMany(targetEntity=Persona.class)
-	private List<Persona> encargado;
-	@OneToMany(targetEntity=Sala.class)
-	private List<Sala> salas;
-	private int npiso;
-	
-	public Piso() {};
-	public Piso(Sede s,int npiso) {
+	private int nuperoPiso;
+	@Column(name="sala")
+	@OneToMany
+	private List<Sala> salasDelPiso;
+
+	public Piso() {
 		super();
-		this.sede = s;
-		this.npiso = npiso;
 	}
-
-
-	public Long getId() {
+	public Piso(Sede sede, int npiso)
+	{	
+		this.sede =sede;
+		this.nuperoPiso = npiso;
+	}
+	public long getId() {
 		return id;
 	}
-
-
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
-
-	public Sede getSede() {
-		return sede;
+	public int getNuperoPiso() {
+		return nuperoPiso;
 	}
-
-
-	public void setSede(Sede sede) {
-		this.sede = sede;
+	public void setNuperoPiso(int nuperoPiso) {
+		this.nuperoPiso = nuperoPiso;
 	}
-
-
-	public List<Persona> getEncargado() {
-		return encargado;
+	public List<Sala> getSalasDelPiso() {
+		return salasDelPiso;
 	}
-
-
-	public void setEncargado(List<Persona> encargado) {
-		this.encargado = encargado;
-	}
-
-
-	public List<Sala> getSalas() {
-		return salas;
-	}
-
-
-	public void setSalas(List<Sala> salas) {
-		this.salas = salas;
-	}
-	public int getNpiso() {
-		return npiso;
-	}
-	public void setNpiso(int npiso) {
-		this.npiso = npiso;
+	public void setSalasDelPiso(List<Sala> salasDelPiso) {
+		this.salasDelPiso = salasDelPiso;
 	}
 	
 	
