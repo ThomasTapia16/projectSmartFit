@@ -31,7 +31,7 @@
         
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul sec:authorize="hasRole('A')" class="navbar-nav">
                     <li>
                         <a href="agregar_colaborador" class="nav-link">
                             Agregar Colaborador

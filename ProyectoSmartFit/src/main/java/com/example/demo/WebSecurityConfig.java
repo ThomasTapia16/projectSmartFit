@@ -10,8 +10,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.service.UserDetailsServiceImpl;
 
@@ -44,17 +47,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
- 
+   
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         .antMatchers(resources).permitAll()
+        .antMatchers("/home").hasRole("COL")
+        .antMatchers("/agregar_sede").access("hasRole('A') or hasRole('SA')")
+        .antMatchers("/agregar_colaborador").access("hasRole('COL') or hasRole('SA')")
+        .antMatchers("/agregar_sala_musculacion").access("hasRole('A') or hasRole('SA')")
+        .antMatchers("/agregar_sala_entrenamiento_masivo").access("hasRole('A') or hasRole('SA')")
+        .antMatchers("/agregar_administrador").hasRole("COL")
+        .antMatchers("/agregar_super_administrador").hasRole("COL")
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            
+            .loginPage("/")
             .permitAll()
-            
+            .defaultSuccessUrl("/home", true)
             
             .usernameParameter("username")
             .passwordParameter("password")
@@ -64,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/login?logout");
             
         http.csrf().disable();
+        
     }
 	
 }

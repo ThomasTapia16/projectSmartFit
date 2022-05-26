@@ -11,7 +11,7 @@
                     
                     <h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nuevo Administrador </h2>
     
-                    <form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crearAdministrador}" action="#" th:object="${admin}">
+                    <form class="row g-3 needs-validation" method="POST" novalidate th:action"@{/crear_administrador}" action="#" th:object="${admin}">
 
                         <div class="col-md-4">
                             <label  class="form-label">Nombre</label>
@@ -70,7 +70,7 @@
 
                         <div class="col-md-4">
                             <label  class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="contrasena" value="" required th:field="*{pwd}">
+                            <input type="password" class="form-control" id="contrasena" value="" required th:field="*{password}">
                             <div class="valid-feedback">
                                 Correcto
                             </div>
