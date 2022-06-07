@@ -8,13 +8,13 @@
 <nav th:replace="plantillas/base :: nav"></nav>
 		
 	<div class="container">		
-		<div class="row gy-3 my-3" >
+		<div class="row gy-3 my-3">
 		
-		<div><h1>[[${#httpServletRequest.remoteUser}]]!</h1></div>
+		<div><h1 th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
 		
 			<div th:each=" sala : ${salas} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">
-				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numero_sala}"></b><img "@{img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
+				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numeroSala}"></b><img th:src="@{../img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
 				  <div class="card-body">
 				    <p class="card-text">
 				    Profesores:

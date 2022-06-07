@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -21,8 +22,17 @@ public abstract class Sala {
 //	private Sede sede;
 	@ManyToOne
 	private Piso piso;
+	@Transient
+	private String estado;
 	public Sala() {
 		super();
+		this.estado = "desocupado";
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	public long getId() {
 		return id;

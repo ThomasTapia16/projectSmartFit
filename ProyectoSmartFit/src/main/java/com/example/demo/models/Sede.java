@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Sede {
 	//@OneToMany(targetEntity=Sala.class)
 	//private List<Sala> salasSede;
 	@Column(name="piso")
-	@OneToMany(targetEntity=Piso.class)
+	@OneToMany(targetEntity=Piso.class,fetch = FetchType.EAGER)
 	private List<Piso> pisosSede;
 	
 	

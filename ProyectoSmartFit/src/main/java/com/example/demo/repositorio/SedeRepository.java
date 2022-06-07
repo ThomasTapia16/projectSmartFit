@@ -20,4 +20,6 @@ public interface SedeRepository extends JpaRepository<Sede,Long>{
 	
 	@Query(nativeQuery = true, value="SELECT s.id FROM Sede s WHERE s.nombre=:n")
 	Long idSede(String n);
+	
+
 }
