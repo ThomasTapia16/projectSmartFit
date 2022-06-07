@@ -18,8 +18,10 @@ public class Piso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	@ManyToOne
 	private Sede sede;
+	
 	private int nuperoPiso;
 	@Column(name="sala")
 	@OneToMany
@@ -50,6 +52,12 @@ public class Piso {
 	}
 	public void setSalasDelPiso(List<Sala> salasDelPiso) {
 		this.salasDelPiso = salasDelPiso;
+	}
+	public Sede getSede() {
+		return sede;
+	}
+	public void setSede(Sede sede) {
+		this.sede = sede;
 	}
 	
 	

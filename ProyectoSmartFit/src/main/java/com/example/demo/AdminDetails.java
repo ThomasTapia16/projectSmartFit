@@ -3,40 +3,38 @@ package com.example.demo;
 import java.util.Arrays;
 import java.util.Collection;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.models.Colaborador;
-import com.example.demo.models.Sede;
+import com.example.demo.models.Admin;
 
-public class MyUserDetails implements UserDetails{
+public class AdminDetails implements UserDetails{
+
+	private Admin administrador;
 	
-	private Colaborador colaborador;
 	
-	public MyUserDetails(Colaborador colaborador) {
-		this.colaborador = colaborador;
+	public AdminDetails(Admin admin)
+	{
+		this.administrador = admin;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(colaborador.getRol());
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(administrador.getRol());
 		return Arrays.asList(authority);
 	}
 
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return colaborador.getPassword();
+		return administrador.getPassword();
 	}
-	public Sede getSede()
-	{
-		return colaborador.getSede();
-	}
+
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return colaborador.getRut();
+		return administrador.getRut();
 	}
 
 	@Override
@@ -61,11 +59,6 @@ public class MyUserDetails implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}
-	
-	public String getNombre()
-	{
-		return colaborador.getNombre();
 	}
 
 }

@@ -12,6 +12,7 @@ import com.example.demo.models.Admin;
 import com.example.demo.models.Colaborador;
 import com.example.demo.models.SuperAdmin;
 import com.example.demo.repositorio.AdminRepository;
+import com.example.demo.repositorio.SuperAdminRepository;
 
 @Controller
 public class SuperAdminController {
@@ -19,6 +20,8 @@ public class SuperAdminController {
 	
 	@Autowired
 	AdminRepository admR;
+	@Autowired
+	SuperAdminRepository saR;
 	@GetMapping("/agregar_administrador")
 	 public String newAdmin(Model model) 
 	{
@@ -35,7 +38,7 @@ public class SuperAdminController {
 		return "crearSuperAdministrador";
 	}
 	
-	//--------------------------------postmapping
+	//--------------------------------postmapping---------------------
 	@PostMapping("/agregar_administrador")
 	public String saveAdmin(@ModelAttribute("admin")Admin admin)
 	{	
@@ -45,5 +48,16 @@ public class SuperAdminController {
 		admR.save(admin);
 		
 		return "redirect:/agregar_administrador";
+	}
+	
+	@PostMapping("/agregar_super_administrador")
+	public String saveSA(@ModelAttribute("super") SuperAdmin superAdmin)
+	{
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		superAdmin.setPassword(bCryptPasswordEncoder.encode(superAdmin.getPassword()));
+		saR.save(superAdmin);
+		
+		return "redirect:/agregar_super_administrador";
 	}
 }

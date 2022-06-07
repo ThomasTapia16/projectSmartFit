@@ -18,9 +18,11 @@ import com.example.demo.models.Colaborador;
 import com.example.demo.models.EntrenamientoMasivo;
 import com.example.demo.models.Musculacion;
 import com.example.demo.models.Piso;
+import com.example.demo.models.Sala;
 import com.example.demo.models.Sede;
 import com.example.demo.repositorio.ColaboradorRepository;
 import com.example.demo.repositorio.PisoRepository;
+import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
 import com.example.demo.service.SedeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,6 +38,8 @@ public class AdminController {
 	PisoRepository pisoR;
 	@Autowired
 	ColaboradorRepository colR;
+	@Autowired
+	SalaRepository salaR;
 /*------------------------------------GET MAPPING-----------------------------------------------*/	
 	@GetMapping("/agregar_colaborador")
 	public String crearColaborador(Model model)
@@ -118,7 +122,7 @@ public class AdminController {
 	public String saveSede(@ModelAttribute("sede") Sede sede)
 	{
 		int c = 0;
-		List<Piso>pisos = new ArrayList();
+		List<Piso>pisos = new ArrayList<Piso>();
 		sedeR.save(sede);
 		while(c < sede.getNpisos())
 		{
@@ -132,12 +136,13 @@ public class AdminController {
 		sedeR.save(sede);
 		return "redirect:/agregar_sede";
 	}
+	
 	@PostMapping("/agregar_colaborador")
 	public String saveColaborador(@ModelAttribute("colaborador") Colaborador col)
 	{	
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
-		col.setPassword(bCryptPasswordEncoder.encode(col.getPassword()));
+		col.setPassword(bCryptPasswordEncoder.encode(col.getPassword())); 
 		Sede sede = sedeR.getById(col.getSede().getId());
 		
 		List<Colaborador> addcol = new ArrayList();
@@ -149,5 +154,22 @@ public class AdminController {
 		sedeR.save(sede);
 		addcol.clear();
 		return "redirect:/agregar_colaborador";
+	}
+	@PostMapping("/agregar_sala_entrenamiento_masivo")
+	public String saveSEM(@ModelAttribute("sala") EntrenamientoMasivo sala,
+			@ModelAttribute("sede")Sede sede, @ModelAttribute("piso")Piso piso)
+	{	
+		
+
+		System.out.println(sede.getNombre());
+		Sede sedeF = sedeR.getById(sedeR.idSede(sede.getNombre()));
+		System.out.println(sedeF.getNombre());
+		System.out.println(piso.getNuperoPiso());
+		Piso pisoSala =  pisoR.getById(pisoR.findPiso(sedeF.getId(), piso.getNuperoPiso()));
+		sala.setPiso(pisoSala);
+		salaR.save(sala);
+		
+		sedeR.save(sedeF);
+		return "redirect:/agregar_sala_entrenamiento_masivo";
 	}
 }

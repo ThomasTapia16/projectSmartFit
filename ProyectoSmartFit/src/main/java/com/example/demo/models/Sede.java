@@ -22,9 +22,9 @@ public class Sede {
 	@Column(name="colaborador")
 	@OneToMany(targetEntity=Colaborador.class)
 	private List<Colaborador> colaboradoresSede;
-	@Column(name="sala")
-	@OneToMany(targetEntity=Sala.class)
-	private List<Sala> salasSede;
+	//@Column(name="sala")
+	//@OneToMany(targetEntity=Sala.class)
+	//private List<Sala> salasSede;
 	@Column(name="piso")
 	@OneToMany(targetEntity=Piso.class)
 	private List<Piso> pisosSede;
@@ -64,12 +64,12 @@ public class Sede {
 	public void setColaboradoresSede(List<Colaborador> colaboradoresSede) {
 		this.colaboradoresSede = colaboradoresSede;
 	}
-	public List<Sala> getSalasSede() {
-		return salasSede;
-	}
-	public void setSalasSede(List<Sala> salasSede) {
-		this.salasSede = salasSede;
-	}
+//	public List<Sala> getSalasSede() {
+//		return salasSede;
+//	}
+//	public void setSalasSede(Sala sala) {
+//		this.salasSede.add(sala);
+//	}
 	public int getNpisos() {
 		return npisos;
 	}
@@ -79,7 +79,7 @@ public class Sede {
 	public List<Piso> getPisosSede() {
 		return pisosSede;
 	}
-	public void setPisosSede(List<Piso> pisosSede) {
+	public void setPisosSede(List<Piso> pisos) {
 		this.pisosSede = pisosSede;
 	}
 	

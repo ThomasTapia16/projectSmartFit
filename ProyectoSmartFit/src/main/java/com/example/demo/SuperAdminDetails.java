@@ -7,36 +7,33 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.models.Colaborador;
-import com.example.demo.models.Sede;
+import com.example.demo.models.SuperAdmin;
 
-public class MyUserDetails implements UserDetails{
-	
-	private Colaborador colaborador;
-	
-	public MyUserDetails(Colaborador colaborador) {
-		this.colaborador = colaborador;
+public class SuperAdminDetails implements UserDetails{
+
+	private SuperAdmin superAdmin;
+	public SuperAdminDetails(SuperAdmin superAdmin2) {
+		// TODO Auto-generated constructor stub
+		this.superAdmin = superAdmin2;
 	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(colaborador.getRol());
-		return Arrays.asList(authority);
+				SimpleGrantedAuthority authority = new SimpleGrantedAuthority(superAdmin.getRol());
+				return Arrays.asList(authority);
 	}
 
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return colaborador.getPassword();
+		return superAdmin.getPassword();
 	}
-	public Sede getSede()
-	{
-		return colaborador.getSede();
-	}
+
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return colaborador.getRut();
+		return superAdmin.getRut();
 	}
 
 	@Override
@@ -61,11 +58,6 @@ public class MyUserDetails implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}
-	
-	public String getNombre()
-	{
-		return colaborador.getNombre();
 	}
 
 }

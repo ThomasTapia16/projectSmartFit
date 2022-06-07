@@ -17,8 +17,8 @@ public abstract class Sala {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private int numeroSala;
-	@ManyToOne
-	private Sede sede;
+//	@ManyToOne
+//	private Sede sede;
 	@ManyToOne
 	private Piso piso;
 	public Sala() {
@@ -36,12 +36,19 @@ public abstract class Sala {
 	public void setNumeroSala(int numeroSala) {
 		this.numeroSala = numeroSala;
 	}
-	public Sede getSede() {
-		return sede;
+	public Piso getPiso() {
+		return piso;
 	}
-	public void setSede(Sede sede) {
-		this.sede = sede;
+	public void setPiso(Piso piso) {
+		this.piso = piso;
 	}
+	
+//	public Sede getSede() {
+//		return sede;
+//	}
+//	public void setSede(Sede sede) {
+//		this.sede = sede;
+//	}
 	
 	
 	

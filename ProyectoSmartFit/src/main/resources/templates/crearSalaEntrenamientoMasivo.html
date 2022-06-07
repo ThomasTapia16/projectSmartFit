@@ -13,12 +13,12 @@
 
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala de Entrenamiento Masivo</h2>
 			
-			<form class="row g-3 needs-validation" method="POST" novalidate  th:action="@{/crearSalaEntrenamientoMasivo}" th:object="${sala}" action="#"> 
+			<form class="row g-3 needs-validation" method="POST" novalidate  th:action="@{/agregar_sala_entrenamiento_masivo}" th:object="${sala}" action="#"> 
 
 							<div class="col-md-4">
                             <label class="form-label">Región</label>
                             <select  class="form-select"  required  id="regiones">
-                               
+                               <option selected disabled value='-1'>SELECT</option>
                                 <option  th:each="ob:${region}" th:value="${ob[0]}" th:text="${ob[0]}"></option>
                               </select>
                         <div class="valid-feedback">
