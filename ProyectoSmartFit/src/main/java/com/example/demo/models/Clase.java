@@ -1,6 +1,9 @@
 package com.example.demo.models;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +23,7 @@ public class Clase {
 	private String nombreClase;
 	@Column(name="profesor")
 	@OneToMany
-	private List<Colaborador> profesores;
+	private Set<Colaborador> profesores = new HashSet<>();
 	
 	@ManyToOne
 	private EntrenamientoMasivo sala;
@@ -39,11 +42,21 @@ public class Clase {
 	public void setNombreClase(String nombreClase) {
 		this.nombreClase = nombreClase;
 	}
-	public List<Colaborador> getProfesores() {
+
+	public Set<Colaborador> getProfesores() {
 		return profesores;
 	}
-	public void setProfesores(List<Colaborador> profesores) {
+	public void setProfesores(Set<Colaborador> profesores) {
 		this.profesores = profesores;
+	}
+	public EntrenamientoMasivo getSala() {
+		return sala;
+	}
+	public void setSala(EntrenamientoMasivo sala) {
+		this.sala = sala;
+	}
+	public void setProfesores(Colaborador profesores) {
+		this.profesores.add(profesores);
 	}
 	public EntrenamientoMasivo getSalaActual() {
 		return sala;

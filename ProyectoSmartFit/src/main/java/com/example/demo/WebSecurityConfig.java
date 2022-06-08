@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         .antMatchers(resources).permitAll()
+        .antMatchers("/").permitAll()
         .antMatchers("/home").access("hasRole('COL') or hasRole('SUPERADMIN') or hasRole('ADMIN')")
         .antMatchers("/agregar_sede").access("hasRole('ADMIN') or hasRole('SUPERADMIN')")
         .antMatchers("/agregar_colaborador").access("hasRole('SUPERADMIN') or hasRole('ADMIN')")

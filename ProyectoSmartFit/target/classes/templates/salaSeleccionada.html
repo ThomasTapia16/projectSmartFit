@@ -9,9 +9,9 @@
 	<div class="container w-75 mt-5" style="margin-bottom: 40px;">
 		<div class="col bg-white p-2 rounded">
 		
-			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> SALA N°169</h2>
+			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;" th:text="'Sala número '+${sala.numeroSala}"></h2>
 			
-			<div class="container">
+			<div class="container" th:if="${sala.estado == 'ocupado'}" >
 				<h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Profesores y Clase realizandose. (ESTO SE VE CUANDO LA SALA ESTA OCUPADA)</h3>
 				<ul class="list-group">
 				  <li class="list-group-item list-group-item-warning" aria-current="true">Profesores en la Sala:</li>
@@ -38,12 +38,23 @@
 			<br>
 			<br>
 			
-			<div class="container">
-				<form class="row g-3 needs-validation" novalidate>
+			<div class="container" th:if="${sala.estado == 'desocupado'}">
+				<form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#">
 				
-					<label><h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Ingresar Profesores y Asignar Clase. (ESTO SE VE CUANDO LA SALA ESTA DESOCUPADA)</h3></label>
+					<label><h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Ingresar Profesores y Asignar Clase.</h3></label>
 					
 					<div class="col-md-4">
+						<label  class="form-label">Profesor</label>
+						<input type="text" class="form-control" id="profesor" value="" required >
+						<div class="valid-feedback">
+							Correcto
+						</div>
+						<div class="invalid-feedback">
+							Ingrese datos validos
+						</div>
+					</div> 	
+
+					<!-- <div class="col-md-4">
 						<label class="form-label">Profesores:</label>
 					  	<ul class="list-group">
 						  <li class="list-group-item">
@@ -67,9 +78,9 @@
 						    Fifth checkbox
 						  </li>
 						</ul>
-					</div>
+					</div> -->
 					
-					<div class="col-md-4">
+					<div class="col-md-4" >
 						<label class="form-label">Clase:</label>
 					  	<select class="form-select" id="region" required>
 					    	<option selected disabled value="">Seleccione...</option>
@@ -103,7 +114,7 @@
        		<br>
 			<br>
 			
-			<div class="container text-center">
+			<div class="container text-center" th:if="${sala.estado == 'deshabilitada'}">
 				<h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">La Sala se encuenta Deshabilitada.</h3>
 				<button class="btn btn-success " type="submit">Habilitar</button>
 			</div>

@@ -10,16 +10,16 @@
 	<div class="container">		
 		<div class="row gy-3 my-3">
 		
-		<div><h1 th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
+		<div><h1 th:if="${a == true}" th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
 		
 			<div th:each=" sala : ${salas} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">
-				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numeroSala}"></b><img th:src="@{../img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
+				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numeroSala}"></b><img th:src="@{img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
 				  <div class="card-body">
 				    <p class="card-text">
 				    Profesores:
 				    </p>
-				    <a href="salaSeleccionada" class="btn btn-warning">Ingresar</a>
+				    <a th:href="@{/salaSeleccionada/}+${sala.id}" class="btn btn-warning">Ingresar</a>
 				  </div>
 				</div>
 			</div>
