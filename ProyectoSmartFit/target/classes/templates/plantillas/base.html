@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script th:src="@{js/dropcascade.js}"></script>
-    <link rel="stylesheet" type="text/css" href="resources/static/plantillaBase.css" media="all">
+    <link th:rel="@{stylesheet}" th:href="@{../css/plantillaBase.css}">
     <link  rel="shortcut icon"  href="img/logo1.png" type="image/png">
     <title>SmartFit</title>
     
@@ -15,9 +15,11 @@
     
         <nav th:fragment = "nav" class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a href="/home" class="navbar-brand mb-0 h1">
+                <a  href="/home" class="navbar-brand mb-0 h1" sec:authorize="hasRole('COL')">
                    <img class="d-inline-block align-top" src="img/logo1.png" width="30" height="30" >
-                    
+                </a>
+                <a  href="/homeAdmin" class="navbar-brand mb-0 h1" sec:authorize="hasRole('SUPERADMIN')">
+                   <img class="d-inline-block align-top" src="img/logo1.png" width="30" height="30" >
                 </a>
                 <button 
                 type="button"
@@ -34,13 +36,13 @@
                 <!--  -->
                 <ul  class="navbar-nav" sec:authorize="hasRole('SUPERADMIN')" >
                     <li>
-                        <a href="agregar_colaborador" class="nav-link">
+                        <a href="agregar_colaborador" class="nav-link" style="color:#FCB823">
                             Agregar Colaborador
                         </a> 
                     </li>
                     
                     <li class="nav-item dropdown">
-          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          				<a class="nav-link dropdown-toggle" style="color:#FCB823" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					Crear DTI
           				</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -74,21 +76,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.smartfit.cl/planos?gclid=CjwKCAjw-8qVBhANEiwAfjXLruj6-BuMxg8Sgc6NWG5xILIOKLv_U1WlhE8C_2RMMaFCt3FrnucNlxoC_UkQAvD_BwE" class="nav-link">
+                        <a href="https://www.smartfit.cl/planos?gclid=CjwKCAjw-8qVBhANEiwAfjXLruj6-BuMxg8Sgc6NWG5xILIOKLv_U1WlhE8C_2RMMaFCt3FrnucNlxoC_UkQAvD_BwE" style="color:#FCB823" class="nav-link">
                             Planes
                         </a> 
                     </li>
                     <li class="nav-item dropdown">
-          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="color:#FCB823" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					Configuración
           				</a>
-          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				            <li><a class="dropdown-item" href="/cambio_contraseña" value="A">Cambiar contraseña</a></li>
+          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background:#212529">
+				            <li><a class="dropdown-item" href="/cambio_contraseña" style="color:#FCB823" value="A">Cambiar contraseña</a></li>
 				           
 			          </ul>
 			        </li>
                     <li>
-                        <a href="cerrarSesion" class="nav-link">
+                        <a href="cerrarSesion" style="color:#FCB823" class="nav-link">
                             Cerrar Sesión
                         </a> 
                     </li>
