@@ -21,6 +21,10 @@ import com.example.demo.service.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	
+	@Autowired
+	SuccesHandler handler;
 	  String[] resources = new String[]{
 	            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
 	    };
@@ -66,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
             .loginPage("/")
             .permitAll()
-            .defaultSuccessUrl("/home", true)
+            .successHandler(handler)
             
             .usernameParameter("username")
             .passwordParameter("password")
