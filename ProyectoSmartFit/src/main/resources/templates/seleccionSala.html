@@ -38,7 +38,7 @@
 			<br>
 			<br>
 			
-			<div class="container" th:if="${sala.estado == 'desocupado'}">
+			<div class="container" th:if="${sala.estado == 'desocupado' && !hora.equals('15')}">
 				<form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#">
 				
 					<label><h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Ingresar Profesores y Asignar Clase.</h3></label>
@@ -109,7 +109,9 @@
 				
 				
 			</div>
-			
+			<div class="container text-center" th:if="${hora.equals('15')}">
+				<h1>Hora del almuerzo 🍌,no podemos ocupar esta sala...😫</h1>
+			</div>
 			
        		<br>
 			<br>

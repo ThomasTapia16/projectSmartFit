@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 				if(sa == null)
 				{
 					
-				}else {return new SuperAdminDetails(sa);}
+				}else {System.out.println("sa");return  new SuperAdminDetails(sa);}
 			}else {return new AdminDetails(admin);}
 			
 			

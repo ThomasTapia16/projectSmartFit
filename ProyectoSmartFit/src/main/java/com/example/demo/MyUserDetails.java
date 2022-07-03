@@ -38,6 +38,10 @@ public class MyUserDetails implements UserDetails{
 		// TODO Auto-generated method stub
 		return colaborador.getRut();
 	}
+	public long getid()
+	{
+		return colaborador.getId();
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {

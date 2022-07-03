@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.SuperAdminDetails;
 import com.example.demo.models.Admin;
 import com.example.demo.models.Colaborador;
 import com.example.demo.models.EntrenamientoMasivo;
@@ -24,12 +25,16 @@ import com.example.demo.repositorio.ColaboradorRepository;
 import com.example.demo.repositorio.PisoRepository;
 import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
+import com.example.demo.service.ChangePwd;
+import com.example.demo.service.PasswordEncrypter;
+import com.example.demo.service.RandomPasswors;
 import com.example.demo.service.SedeService;
+import com.example.demo.service.SendEmail;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class AdminController {
+public class AdminController extends BaseController{
 	@Autowired
 	SedeService sedeS;
 	@Autowired
@@ -40,6 +45,13 @@ public class AdminController {
 	ColaboradorRepository colR;
 	@Autowired
 	SalaRepository salaR;
+	@Autowired
+	SendEmail mail;
+	@Autowired
+	RandomPasswors gp;
+	@Autowired
+	PasswordEncrypter encripter;
+	
 /*------------------------------------GET MAPPING-----------------------------------------------*/	
 	@GetMapping("/agregar_colaborador")
 	public String crearColaborador(Model model)
@@ -140,9 +152,13 @@ public class AdminController {
 	@PostMapping("/agregar_colaborador")
 	public String saveColaborador(@ModelAttribute("colaborador") Colaborador col)
 	{	
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
-		col.setPassword(bCryptPasswordEncoder.encode(col.getPassword())); 
+		String pwd = gp.getRandomString();
+		String pwdreal = pwd;
+		col.setPassword(pwd);
+		System.out.println(col.getPassword());
+		col.setPassword(encripter.encirptador(col.getPassword()));
+		System.out.println(col.getPassword());
 		Sede sede = sedeR.getById(col.getSede().getId());
 		
 		List<Colaborador> addcol = new ArrayList();
@@ -150,7 +166,7 @@ public class AdminController {
 		
 		sede.setColaboradoresSede(addcol);
 		colR.save(col);
-		
+		mail.sendEmail(col.getCorreo(), col.getNombre(), pwdreal);
 		sedeR.save(sede);
 		addcol.clear();
 		return "redirect:/agregar_colaborador";
@@ -172,4 +188,16 @@ public class AdminController {
 		sedeR.save(sedeF);
 		return "redirect:/agregar_sala_entrenamiento_masivo";
 	}
+	@GetMapping("/homeAdmin")
+	public String iniciarAdmin(Model model)
+	{
+		boolean a = false;
+		
+		SuperAdminDetails sa = getLoggedSA();
+		model.addAttribute("b",a);
+		return "home";
+		
+	}
+	
+	
 }

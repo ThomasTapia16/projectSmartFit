@@ -3,7 +3,8 @@
 <head th:replace="plantillas/base :: head">
 <meta charset='utf-8'>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script th:src="@{../dropcascade.js}"></script>
+ <link rel="stylesheet" type="text/css" href="resources/static/plantillaBase.css" media="all">
+<script th:src="@{C:\Users\thoma\projectSmartFit\ProyectoSmartFit\src\main\resources\static\js\dropcascade.js}"></script>
 </head>
 <body>
 	<nav th:replace="plantillas/base :: nav"></nav>
@@ -13,7 +14,7 @@
 
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala de Entrenamiento Masivo</h2>
 			
-			<form class="row g-3 needs-validation" method="POST" novalidate  th:action="@{/agregar_sala_entrenamiento_masivo}" th:object="${sala}" action="#"> 
+			<form class="row g-3 needs-validation" method="POST" novalidate  th:action="@{agregar_sala_entrenamiento_masivo}" th:object="${sala}" action="#"> 
 
 							<div class="col-md-4">
                             <label class="form-label">Región</label>

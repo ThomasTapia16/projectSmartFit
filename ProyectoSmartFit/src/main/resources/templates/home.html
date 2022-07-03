@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th = "http://www.thymeleaf.org">
 <head th:replace="plantillas/base :: head">
@@ -10,7 +9,7 @@
 	<div class="container">		
 		<div class="row gy-3 my-3">
 		
-		<div><h1 th:if="${a == true}" th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
+		<div th:if="b == true"><h1 th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
 		
 			<div th:each=" sala : ${salas} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">

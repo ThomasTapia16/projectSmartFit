@@ -21,9 +21,8 @@ public class Clase {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String nombreClase;
-	@Column(name="profesor")
-	@OneToMany
-	private Set<Colaborador> profesores = new HashSet<>();
+	@Transient
+	private List<String>profesores = new ArrayList<>();
 	
 	@ManyToOne
 	private EntrenamientoMasivo sala;
@@ -43,10 +42,10 @@ public class Clase {
 		this.nombreClase = nombreClase;
 	}
 
-	public Set<Colaborador> getProfesores() {
+	public List<String> getProfesores() {
 		return profesores;
 	}
-	public void setProfesores(Set<Colaborador> profesores) {
+	public void setProfesores(List<String> profesores) {
 		this.profesores = profesores;
 	}
 	public EntrenamientoMasivo getSala() {
@@ -55,9 +54,12 @@ public class Clase {
 	public void setSala(EntrenamientoMasivo sala) {
 		this.sala = sala;
 	}
-	public void setProfesores(Colaborador profesores) {
-		this.profesores.add(profesores);
+	
+	public void llenarLista(String nombre)
+	{
+		this.profesores.add(nombre);
 	}
+	
 	public EntrenamientoMasivo getSalaActual() {
 		return sala;
 	}
