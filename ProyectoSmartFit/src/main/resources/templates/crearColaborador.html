@@ -4,6 +4,12 @@
 <meta charset='utf-8'>
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 <nav th:replace="plantillas/base :: nav"></nav>
 <div class="container w-75  mt-5">
             
@@ -51,8 +57,11 @@
                         <div class="col-md-4">
                             <label  class="form-label">Rut</label>
                             <input type="text" class="form-control" id="rut" value="" required th:field="*{rut}">
-                            <div class="valid-feedback">
+                            <div class="valid-feedback" th:if="${flag == false}">
                                 Correcto
+                            </div>
+                            <div class="valid-feedback" th:if="${flag == true}" style="color:#DC3545">
+                                Rut ya existe!!
                             </div>
                             <div class="invalid-feedback">
                                 Ingrese datos validos
@@ -106,7 +115,7 @@
                              <label class="form-check-label" for="flexSwitchCheckDefault">Encargado</label>
                         </div>
                         <div class="col-12">
-                          <button class="btn btn-warning" type="submit">Registrar</button>
+                          <button class="btn btn-warning" id="botonform" type="submit">Registrar</button>
                         </div>
                     </form>
     

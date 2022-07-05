@@ -43,46 +43,62 @@
 				
 					<label><h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Ingresar Profesores y Asignar Clase.</h3></label>
 					
-					<div class="col-md-4">
-						<label  class="form-label">Profesor</label>
-						<input type="text" class="form-control" id="profesor" value="" required >
-						<div class="valid-feedback">
-							Correcto
-						</div>
-						<div class="invalid-feedback">
-							Ingrese datos validos
-						</div>
+					<div class="col-md-3" >
+						<label class="form-label">Profesor:</label>
+					  	<select class="form-select" id="profesor" required>
+					    	<option selected disabled value="">Seleccione...</option>
+					    	<option> A</option>
+					  	</select>
+					  	<div class="valid-feedback">
+		                             Correcto
+		                         </div>
+					  	<div class="invalid-feedback">
+					    	Please select a valid state.
+					  	</div>
+					</div>
+					<div class="col-md-3" >
+						<label class="form-label">Ayudante N°1:</label>
+					  	<select class="form-select" id="ayudante1" required>
+					    	<option selected disabled value="">Seleccione...</option>
+					    	<option> A</option>
+					  	</select>
+					  	<div class="valid-feedback">
+		                             Correcto
+		                         </div>
+					  	<div class="invalid-feedback">
+					    	Please select a valid state.
+					  	</div>
+					</div>
+					<div class="col-md-3" >
+						<label class="form-label">Ayudante N°2:</label>
+					  	<select class="form-select" id="ayudante2" required>
+					    	<option selected disabled value="">Seleccione...</option>
+					    	<option> A</option>
+					  	</select>
+					  	<div class="valid-feedback">
+		                             Correcto
+		                         </div>
+					  	<div class="invalid-feedback">
+					    	Please select a valid state.
+					  	</div>
+					</div>
+					<div class="col-md-3" >
+						<label class="form-label">Ayudante N°3:</label>
+					  	<select class="form-select" id="ayudante3" required>
+					    	<option selected disabled value="">Seleccione...</option>
+					    	<option> A</option>
+					  	</select>
+					  	<div class="valid-feedback">
+		                             Correcto
+		                         </div>
+					  	<div class="invalid-feedback">
+					    	Please select a valid state.
+					  	</div>
 					</div> 	
-
-					<!-- <div class="col-md-4">
-						<label class="form-label">Profesores:</label>
-					  	<ul class="list-group">
-						  <li class="list-group-item">
-						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-						    First checkbox
-						  </li>
-						  <li class="list-group-item">
-						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-						    Second checkbox
-						  </li>
-						  <li class="list-group-item">
-						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-						    Third checkbox
-						  </li>
-						  <li class="list-group-item">
-						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-						    Fourth checkbox
-						  </li>
-						  <li class="list-group-item">
-						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-						    Fifth checkbox
-						  </li>
-						</ul>
-					</div> -->
 					
 					<div class="col-md-4" >
 						<label class="form-label">Clase:</label>
-					  	<select class="form-select" id="region" required>
+					  	<select class="form-select" id="clase" required>
 					    	<option selected disabled value="">Seleccione...</option>
 					    	<option> A</option>
 					   		<option> B</option>
@@ -103,12 +119,26 @@
 				
 				<br>
 				<br>
-				<div class="container text-center">
+				
+				 <!--  <form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#"> -->
+					
+					<div class="col-md-4">
+                        <label  class="form-label">Motivo Deshabilitar Sala:</label>
+                        <input type="textarea" class="form-control" id="motivo" value="">
+                        <div class="valid-feedback">
+                            Correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            Ingrese datos validos
+                        </div>
+                    </div>
+					<br>
 					<button class="btn btn-danger" type="submit">Deshabilitar</button>
-				</div>
-				
-				
+					
+				<!-- </form>-->
 			</div>
+			
+			
 			<div class="container text-center" th:if="${hora.equals('15')}">
 				<h1>Hora del almuerzo 🍌,no podemos ocupar esta sala...😫</h1>
 			</div>

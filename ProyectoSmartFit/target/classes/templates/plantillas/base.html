@@ -16,10 +16,10 @@
         <nav th:fragment = "nav" class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a  href="/home" class="navbar-brand mb-0 h1" sec:authorize="hasRole('COL')">
-                   <img class="d-inline-block align-top" src="img/logo1.png" width="30" height="30" >
+                   <img class="d-inline-block align-top" src="/img/smart-fit-logo.png" width="120" height="40" >
                 </a>
                 <a  href="/homeAdmin" class="navbar-brand mb-0 h1" sec:authorize="hasRole('SUPERADMIN')">
-                   <img class="d-inline-block align-top" src="img/logo1.png" width="30" height="30" >
+                   <img class="d-inline-block align-top" src="/img/smart-fit-logo.png" width="120" height="40" >
                 </a>
                 <button 
                 type="button"
@@ -45,25 +45,25 @@
           				<a class="nav-link dropdown-toggle" style="color:#FCB823" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					Crear DTI
           				</a>
-          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				            <li><a class="dropdown-item" href="agregar_administrador" value="A">Agregar Administrador</a></li>
-				            <li><a class="dropdown-item" href="agregar_super_administrador" value="S">Agregar Super Administrador</a></li>
+          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background:#212529">
+				            <li><a class="dropdown-item" href="agregar_administrador" style="color:#FCB823" value="A">Agregar Administrador</a></li>
+				            <li><a class="dropdown-item" href="agregar_super_administrador" style="color:#FCB823" value="S">Agregar Super Administrador</a></li>
 			          </ul>
 			        </li>
                                     
                     
                     <li>
-                        <a href="agregar_sede" class="nav-link">
+                        <a href="agregar_sede" class="nav-link" style="color:#FCB823">
                             Agregar Sede
                         </a> 
                     </li>
                     <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#FCB823">
                                Agregar Salas
                           </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             <li><a class="dropdown-item" href="/agregar_sala_musculacion">Agregar Sala de Musculacion</a></li>
-                            <li><a class="dropdown-item" href="/agregar_sala_entrenamiento_masivo">Agregar Sala de Entrenamiento Masivo</a></li>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background:#212529">
+                             <li><a class="dropdown-item" href="/agregar_sala_musculacion" style="color:#FCB823">Agregar Sala de Musculacion</a></li>
+                            <li><a class="dropdown-item" href="/agregar_sala_entrenamiento_masivo" style="color:#FCB823">Agregar Sala de Entrenamiento Masivo</a></li>
 
                       </ul>
                     </li>
@@ -71,7 +71,10 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
-                        <a href="home" class="nav-link">
+                        <a href="/homeAdmin" class="nav-link" style="color:#FCB823" sec:authorize="hasRole('SUPERADMIN')">
+                            Inicio
+                        </a>
+                        <a href="/home" class="nav-link" style="color:#FCB823" sec:authorize="hasRole('COL')">
                             Inicio
                         </a>
                     </li>
@@ -85,12 +88,12 @@
            					Configuración
           				</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background:#212529">
-				            <li><a class="dropdown-item" href="/cambio_contraseña" style="color:#FCB823" value="A">Cambiar contraseña</a></li>
+				            <li><a class="dropdown-item" href="/cambio_contraseña" style="color:#FCB823">Cambiar contraseña</a></li>
 				           
 			          </ul>
 			        </li>
                     <li>
-                        <a href="cerrarSesion" style="color:#FCB823" class="nav-link">
+                        <a href="/cerrarSesion" style="color:#FCB823" class="nav-link">
                             Cerrar Sesión
                         </a> 
                     </li>

@@ -32,7 +32,9 @@ import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
 import com.example.demo.repositorio.claseRepository;
 import com.example.demo.service.ChangePwd;
+import com.example.demo.service.ColaboradorService;
 import com.example.demo.service.PasswordEncrypter;
+import com.example.demo.service.SedeService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,17 +55,25 @@ public class MainController extends BaseController{
 	ChangePwd changeP;
 	@Autowired
 	PasswordEncrypter encripter;
+	@Autowired
+	ColaboradorService cS;
+	
 	@GetMapping("/")
 	public String login()
 	{
 		return "login";
 	}
+	
 	@PostMapping("/")
 	public String entrar()
 	{
 		return "redirect:/home";
 	}
-
+	@GetMapping("cerrarSesion")
+	public String logOut()
+	{	SecurityContextHolder.getContext().setAuthentication(null);
+		return "login";
+	}
 	@GetMapping("/home")
 	public String home(Model model){
 		
@@ -100,8 +110,12 @@ public class MainController extends BaseController{
 	{	String profesor = null;
 		EntrenamientoMasivo sala = emR.getById(idSala);
 		Clase clase = new Clase();
-		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
-	     
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
+		MyUserDetails user = getLoggedUser();
+		
+		List<Colaborador> colaboradores = cS.buscar(1);
+		
+		//model.addAttribute("colaboradores",cS.porsede(1));
 		model.addAttribute("profe",profesor);
 		model.addAttribute("hora",dtf.format(LocalDateTime.now()));
 		model.addAttribute("sala",sala);
@@ -112,7 +126,8 @@ public class MainController extends BaseController{
 	}
 	@PostMapping("/salaSeleccionada/{id}")
 	public String ocuparSala(@ModelAttribute("sala")EntrenamientoMasivo sala
-			,@ModelAttribute("clase")Clase clase,@ModelAttribute("profe")String profesor,@ModelAttribute("hora")String hora)
+			,@ModelAttribute("clase")Clase clase,@ModelAttribute("profe")String profesor,@ModelAttribute("hora")String hora,
+			@ModelAttribute("colaboradores")List<Object[]> colaboradores)
 	{	
 		
 		System.out.println(sala.getPiso());

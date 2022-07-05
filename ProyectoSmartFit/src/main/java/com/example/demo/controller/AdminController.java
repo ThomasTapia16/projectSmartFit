@@ -26,10 +26,13 @@ import com.example.demo.repositorio.PisoRepository;
 import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
 import com.example.demo.service.ChangePwd;
+
 import com.example.demo.service.PasswordEncrypter;
 import com.example.demo.service.RandomPasswors;
 import com.example.demo.service.SedeService;
 import com.example.demo.service.SendEmail;
+import com.example.demo.service.validadorRut;
+//import com.example.demo.service.verificadorRut;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,6 +44,7 @@ public class AdminController extends BaseController{
 	SedeRepository sedeR;
 	@Autowired
 	PisoRepository pisoR;
+
 	@Autowired
 	ColaboradorRepository colR;
 	@Autowired
@@ -51,15 +55,19 @@ public class AdminController extends BaseController{
 	RandomPasswors gp;
 	@Autowired
 	PasswordEncrypter encripter;
+	@Autowired
+	validadorRut vR;
 	
 /*------------------------------------GET MAPPING-----------------------------------------------*/	
 	@GetMapping("/agregar_colaborador")
 	public String crearColaborador(Model model)
 	{	Colaborador colaborador = new Colaborador();
 		List<Sede> sedes = (List<Sede>)sedeR.findAll();
+		boolean flag = true;
+		model.addAttribute("flag",flag);
 		model.addAttribute("sedes",sedes);
 		model.addAttribute("colaborador", colaborador);
-		
+
 		return "crearColaborador";
 	}
 	@GetMapping("/agregar_sede")
@@ -150,9 +158,9 @@ public class AdminController extends BaseController{
 	}
 	
 	@PostMapping("/agregar_colaborador")
-	public String saveColaborador(@ModelAttribute("colaborador") Colaborador col)
+	public String saveColaborador(@ModelAttribute("colaborador") Colaborador col,Model model)
 	{	
-		
+		if(vR.verificador(col.getRut()) == false) {
 		String pwd = gp.getRandomString();
 		String pwdreal = pwd;
 		col.setPassword(pwd);
@@ -169,6 +177,9 @@ public class AdminController extends BaseController{
 		mail.sendEmail(col.getCorreo(), col.getNombre(), pwdreal);
 		sedeR.save(sede);
 		addcol.clear();
+		}else {System.out.println("ese wn ya existe");
+			model.addAttribute("flag",vR.verificador(col.getRut()));
+		}
 		return "redirect:/agregar_colaborador";
 	}
 	@PostMapping("/agregar_sala_entrenamiento_masivo")

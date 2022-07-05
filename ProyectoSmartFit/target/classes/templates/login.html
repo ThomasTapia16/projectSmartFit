@@ -10,6 +10,7 @@
     <link th:rel="@{stylesheet}" th:href="@{../css/login.css}">
     
 </head>
+
 <body>
     
     <div class="container w-75 bg-primary mt-5 rounded shadow">
@@ -40,8 +41,9 @@
                     </div>
                     -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="username" placeholder="rut" required name="username">
-                        <label for="username">Rut</label>
+                        <input type="text" class="form-control" id="username" placeholder="rut" required name="username" minlength="9" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+>
+                        <label for="username">Rut sin puntos ni guión</label>
                         <div class="valid-feedback">
                             Datos ingresados corectamente
                         </div>
@@ -78,7 +80,7 @@
                     </div> -->
 
                     <div class="d-grid mt-3 ">
-                        <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
+                        <button  disabled type="submit" class="btn btn-dark" id="envio">Iniciar Sesión</button>
                     </div>
 
                     <div class="my-3 text-center ">
@@ -92,7 +94,51 @@
             </div>
         </div>
     </div>
-
+    <script>
+    	let boton1  = document.getElementById("envio")
+        let inputs = document.querySelectorAll(".form-control")
+        
+       	inputs[1].addEventListener("keyup", () => {
+		  if(inputs[0].value.length < 9)
+		  {
+				document.getElementById("envio").disabled = true;
+		}
+          if(inputs[0].value != "" && inputs[1].value != "") {
+			 if(inputs[0].value.length === 9){
+              	document.getElementById("envio").disabled = false;
+              }
+          } else  {
+			  
+              	document.getElementById("envio").disabled = true;
+              	
+          }
+          
+        })
+        inputs[0].addEventListener("keyup", () => {
+	  if(inputs[0].value.length < 9)
+		  {
+				document.getElementById("envio").disabled = true;
+		}
+          if(inputs[0].value != "" && inputs[1].value != "") {
+				if(inputs[0].value.length === 9){
+              	document.getElementById("envio").disabled = false;
+              }
+          } else{
+			  
+              	document.getElementById("envio").disabled = true;
+              	
+          }
+          
+        })
+      
+    </script>
+	<script>
+	var input=  document.getElementById('username');
+	input.addEventListener('input',function(){
+  	if (this.value.length > 9) 
+    	 this.value = this.value.slice(0,9); 
+})
+	</script>
     <script src="bootstrap.bundle.min.js"></script>
     <script src="validacionFormularioBootstrap.js"></script>
 
