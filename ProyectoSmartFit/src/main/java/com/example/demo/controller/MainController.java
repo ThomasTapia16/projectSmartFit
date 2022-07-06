@@ -31,6 +31,7 @@ import com.example.demo.repositorio.PisoRepository;
 import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
 import com.example.demo.repositorio.claseRepository;
+import com.example.demo.service.AdminInitializer;
 import com.example.demo.service.ChangePwd;
 import com.example.demo.service.ColaboradorService;
 import com.example.demo.service.PasswordEncrypter;
@@ -57,10 +58,13 @@ public class MainController extends BaseController{
 	PasswordEncrypter encripter;
 	@Autowired
 	ColaboradorService cS;
+	@Autowired
+	AdminInitializer adI;
 	
 	@GetMapping("/")
 	public String login()
-	{
+	{	
+		adI.verificar();
 		return "login";
 	}
 	

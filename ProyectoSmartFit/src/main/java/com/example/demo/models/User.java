@@ -28,6 +28,18 @@ public abstract class User {
 	public User() {
 		this.enabled = true;
 	}
+	
+	public User(String rut, String nombre, String apellido, String correo, String password, String rol) {
+		super();
+		
+		this.rut = rut;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.password = password;
+		this.rol = rol;
+		this.enabled = true;
+	}
 
 	public long getId() {
 		return id;

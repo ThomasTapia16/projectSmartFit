@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  
+  mysqldb:
+    image: "mysql:5.7"
+    
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: smartfit
+      MYSQL_USER: thomas
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+  server:
+    build: .
+    
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/smartfit
+    depends_on:
+      - mysqldb
