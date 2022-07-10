@@ -45,9 +45,9 @@
 					
 					<div class="col-md-3" >
 						<label class="form-label">Profesor:</label>
-					  	<select class="form-select" id="profesor" required>
+					  	<select class="form-select" id="profesor" required th:field="${clase.profesores}"}>
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option> A</option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -60,7 +60,7 @@
 						<label class="form-label">Ayudante N°1:</label>
 					  	<select class="form-select" id="ayudante1" required>
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option> A</option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -73,7 +73,7 @@
 						<label class="form-label">Ayudante N°2:</label>
 					  	<select class="form-select" id="ayudante2" required>
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option> A</option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -86,7 +86,7 @@
 						<label class="form-label">Ayudante N°3:</label>
 					  	<select class="form-select" id="ayudante3" required>
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option> A</option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto

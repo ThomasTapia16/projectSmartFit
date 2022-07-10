@@ -21,13 +21,16 @@ public class Clase {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String nombreClase;
+	private boolean activo;
 	@Transient
 	private List<String>profesores = new ArrayList<>();
+	
 	
 	@ManyToOne
 	private EntrenamientoMasivo sala;
 	public Clase() {
 		super();
+		this.setActivo(true);
 	}
 	public long getId() {
 		return id;
@@ -67,5 +70,15 @@ public class Clase {
 		this.sala = claseActual;
 	}
 	
+	public void desactivar()
+	{
+		this.setActivo(false);
+	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	
 }

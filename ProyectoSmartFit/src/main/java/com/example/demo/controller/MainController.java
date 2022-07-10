@@ -111,16 +111,19 @@ public class MainController extends BaseController{
 	
 	@GetMapping("/salaSeleccionada/{id}")
 	public String sala(@PathVariable("id") Long idSala, Model model, RedirectAttributes attribute)
-	{	String profesor = null;
+	{	
+		
+
 		EntrenamientoMasivo sala = emR.getById(idSala);
 		Clase clase = new Clase();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
 		MyUserDetails user = getLoggedUser();
 		
-		List<Colaborador> colaboradores = cS.buscar(1);
+		List<Colaborador> colaboradores = cS.buscar(user.getSede().getId());
+		//System.out.println(colaboradores.size());
 		
 		//model.addAttribute("colaboradores",cS.porsede(1));
-		model.addAttribute("profe",profesor);
+		model.addAttribute("profe",colaboradores);
 		model.addAttribute("hora",dtf.format(LocalDateTime.now()));
 		model.addAttribute("sala",sala);
 		model.addAttribute("piso",sala.getPiso());
@@ -130,18 +133,19 @@ public class MainController extends BaseController{
 	}
 	@PostMapping("/salaSeleccionada/{id}")
 	public String ocuparSala(@ModelAttribute("sala")EntrenamientoMasivo sala
-			,@ModelAttribute("clase")Clase clase,@ModelAttribute("profe")String profesor,@ModelAttribute("hora")String hora,
-			@ModelAttribute("colaboradores")List<Object[]> colaboradores)
+			,@ModelAttribute("clase")Clase clase,@ModelAttribute("hora")String hora
+			)
 	{	
 		
 		System.out.println(sala.getPiso());
-		
+		clase.setSala(sala);
+		claseR.save(clase);
 		sala.setOcupado();
 		sala.setNumeroSala(sala.getNumeroSala());
-		clase.llenarLista(profesor);
+		
 		
 		salaR.save(sala);
-		clase.getProfesores();
+		
 		return "redirect:/home";
 	}
 	@GetMapping("/loginAdmin")
