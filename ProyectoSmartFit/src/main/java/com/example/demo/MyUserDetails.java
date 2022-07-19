@@ -71,5 +71,13 @@ public class MyUserDetails implements UserDetails{
 	{
 		return colaborador.getNombre();
 	}
+	public String getApellido()
+	{
+		return colaborador.getApellido();
+	}
+	public String getCorreo()
+	{
+		return colaborador.getCorreo();
+	}
 
 }

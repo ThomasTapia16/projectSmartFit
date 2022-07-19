@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Clase {
 	private long id;
 	private String nombreClase;
 	private boolean activo;
-	@Transient
+	@ElementCollection
 	private List<String>profesores = new ArrayList<>();
 	
 	
@@ -79,6 +80,11 @@ public class Clase {
 	}
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+	public void leerCol()
+	{
+		for(int i = 0 ; i<this.profesores.size();i++)
+			System.out.println(profesores.get(i));
 	}
 	
 }

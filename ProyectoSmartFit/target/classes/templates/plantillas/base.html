@@ -15,7 +15,7 @@
     
         <nav th:fragment = "nav" class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a  href="/home" class="navbar-brand mb-0 h1" sec:authorize="hasRole('COL')">
+                <a  href="/home" class="navbar-brand mb-0 h1" sec:authorize="hasRole('COL') || hasRole('ENCARGADO')">
                    <img class="d-inline-block align-top" src="/img/smart-fit-logo.png" width="120" height="40" >
                 </a>
                 <a  href="/homeAdmin" class="navbar-brand mb-0 h1" sec:authorize="hasRole('SUPERADMIN')">
@@ -70,19 +70,26 @@
                     
                 </ul>
                 <ul class="navbar-nav ms-auto">
+               
                     <li class="nav-item active">
                         <a href="/homeAdmin" class="nav-link" style="color:#FCB823" sec:authorize="hasRole('SUPERADMIN')">
                             Inicio
                         </a>
-                        <a href="/home" class="nav-link" style="color:#FCB823" sec:authorize="hasRole('COL')">
+                        <a href="/home" class="nav-link" style="color:#FCB823" sec:authorize="hasRole('COL') || hasRole('ENCARGADO')">
                             Inicio
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.smartfit.cl/planos?gclid=CjwKCAjw-8qVBhANEiwAfjXLruj6-BuMxg8Sgc6NWG5xILIOKLv_U1WlhE8C_2RMMaFCt3FrnucNlxoC_UkQAvD_BwE" style="color:#FCB823" class="nav-link">
+                        <a sec:authorize="hasRole('ENCARGADO')"href="/enviarSolicitud" style="color:#FCB823" class="nav-link">
+                            Enviar solicitud
+                        </a> 
+                    </li>
+                    <li>
+                        <a href="https://www.smartfit.cl/planos?gclid=CjwKCAjw-8qVBhANEiwAfjXLruj6-BuMxg8Sgc6NWG5xILIOKLv_U1WlhE8C_2RMMaFCt3FrnucNlxoC_UkQAvD_BwE" style="color:#FCB823" class="nav-link" target="_blank">
                             Planes
                         </a> 
                     </li>
+                    
                     <li class="nav-item dropdown">
           				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="color:#FCB823" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					Configuración

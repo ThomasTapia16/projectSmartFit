@@ -30,6 +30,7 @@ public abstract class Sala {
 	private Piso piso;
 	
 	private String estado;
+	private String motivoDeshabilitado;
 	public Sala() {
 		super();
 		this.estado = "desocupado";
@@ -73,5 +74,17 @@ public abstract class Sala {
 	{
 		this.estado = "desocupado";
 	}
+	
+	public void setDeshabilitado()
+	{
+		this.estado = "deshabilitado";
+	}
+	public String getMotivoDeshabilitado() {
+		return motivoDeshabilitado;
+	}
+	public void setMotivoDeshabilitado(String motivoDeshabilitado) {
+		this.motivoDeshabilitado = motivoDeshabilitado;
+	}
+	
 	
 }

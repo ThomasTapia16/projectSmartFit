@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,12 +21,15 @@ import com.example.demo.models.Colaborador;
 import com.example.demo.models.EntrenamientoMasivo;
 import com.example.demo.models.Musculacion;
 import com.example.demo.models.Piso;
+import com.example.demo.models.Rechazo;
 import com.example.demo.models.Sala;
 import com.example.demo.models.Sede;
+import com.example.demo.models.Solicitud;
 import com.example.demo.repositorio.ColaboradorRepository;
 import com.example.demo.repositorio.PisoRepository;
 import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
+import com.example.demo.repositorio.SolicitudRepository;
 import com.example.demo.service.ChangePwd;
 
 import com.example.demo.service.PasswordEncrypter;
@@ -44,7 +49,8 @@ public class AdminController extends BaseController{
 	SedeRepository sedeR;
 	@Autowired
 	PisoRepository pisoR;
-
+	@Autowired
+	SolicitudRepository sol;
 	@Autowired
 	ColaboradorRepository colR;
 	@Autowired
@@ -199,16 +205,87 @@ public class AdminController extends BaseController{
 		sedeR.save(sedeF);
 		return "redirect:/agregar_sala_entrenamiento_masivo";
 	}
+	
+	
+	
 	@GetMapping("/homeAdmin")
 	public String iniciarAdmin(Model model)
 	{
-		boolean a = false;
+		boolean a = true;
 		
 		SuperAdminDetails sa = getLoggedSA();
-		model.addAttribute("b",a);
+		List<Solicitud> solicitudes = sol.findByEstado(a);
+		model.addAttribute("tipo",a);
+		model.addAttribute("solicitudes",solicitudes);
 		return "home";
 		
 	}
+	
+	@GetMapping("/rechazado/{id}")
+	public String getRechazado(@PathVariable("id")Long idSoli, Model model) {
+		
+		Solicitud soli = sol.getById(idSoli);
+		Rechazo rechazo = new Rechazo();
+		model.addAttribute("solicitud",soli);
+		model.addAttribute("rechazo",rechazo);
+		model.addAttribute("correo",soli.getCorreoEncargadoSede());
+		model.addAttribute("id",soli.getId());
+		System.out.println(soli.getCorreoEncargadoSede());
+		return "rechazado";
+		
+	}
+	@PostMapping("/rechazado/{id}")
+	public String rechazarSolicitud(@ModelAttribute("solicitud")Solicitud soli,
+			@ModelAttribute("rechazo") Rechazo rechazo,
+			@ModelAttribute("correo")String correo,
+			@ModelAttribute("id")Long id) {
+		
+		
+		System.out.println(correo);
+		mail.sendEmailRechazo(correo, id, rechazo.getMotivo());
+		soli.solicitudProcesada();
+		sol.save(soli);
+		System.out.println(rechazo.getMotivo());
+		return "redirect:/homeAdmin";
+	}
+	@GetMapping("/aceptado/{id}")
+	public String getAceptado() {
+		
+		
+		return "home";
+		
+	}
+	
+	@PostMapping("/aceptado/{id}")
+	public String aceptarSolicirud(@PathVariable("id")Long idSolictud)
+	{	
+		Solicitud soli = sol.getById(idSolictud);
+		Colaborador colaborador = new Colaborador();
+		colaborador.setRut(soli.getRut());
+		colaborador.setNombre(soli.getNombre());
+		colaborador.setApellido(soli.getApellido());
+		colaborador.setCorreo(soli.getCorreo());
+		colaborador.setSede(soli.getSede());
+		String pwd = gp.getRandomString();
+		String real = pwd;
+		colaborador.setPassword(pwd);
+		colaborador.setPassword(encripter.encirptador(colaborador.getPassword()));
+		
+		mail.sendEmail(colaborador.getCorreo(), colaborador.getNombre(), real);
+		Sede sede = sedeR.getById(colaborador.getSede().getId());
+		
+		List<Colaborador> addcol = new ArrayList();
+		addcol.add(colaborador);
+		
+		sede.setColaboradoresSede(addcol);
+		colR.save(colaborador);
+		
+		sedeR.save(sede);
+		soli.solicitudProcesada();
+		sol.save(soli);
+		return "redirect:/homeAdmin";
+	}
+
 	
 	
 }

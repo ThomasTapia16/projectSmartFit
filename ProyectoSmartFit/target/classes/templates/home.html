@@ -9,21 +9,75 @@
 	<div class="container">		
 		<div class="row gy-3 my-3">
 		
-		<div th:if="b == true"><h1 th:text="${sede.nombre}" style="color: #ffff;"></h1></div>
+		<div sec:authorize="hasRole('SUPERADMIN') || hasRole('ADMIN')"class="container w-75  mt-5  ">
+		<div class="col bg-white p-5 rounded table-responsive">
+			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Solicitud Colaboradores</h2>
+			<table class="table table-hover table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Rut</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Correo</th>
+						<th scope="col">Sede</th>
+						
+						<th scope="col">Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="solicitud : ${solicitudes}">
+						<th th:text="${solicitud.id}"></th>
+						<td th:text="${solicitud.rut}"></td>
+						<td th:text="${solicitud.nombre}"></td>
+						<td th:text="${solicitud.apellido}"></td>
+						<td th:text="${solicitud.correo}"></td>
+						<td th:text="${solicitud.sede.nombre}"></td>
+						
+						<td>
+							<form action="#" method="POST" class="d-inline" th:action="@{/aceptado/}+${solicitud.id}">
+								<button class="btn btn-dark " type="submit">Aceptar</button>
+							</form>
+							<a th:href="@{/rechazado/}+${solicitud.id}" class="btn btn-warning">Rechazar</a>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
 		
 			<div th:each=" sala : ${salas} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">
 				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numeroSala}"></b><img th:src="@{img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
 				  <div class="card-body">
-				    <p class="card-text">
-				    Profesores:
+				   <p class="card-text" th:if="${sala.estado == 'deshabilitado'}">
+				    Motivo:<h6 th:text="${sala.motivoDeshabilitado}"></h6>
 				    </p>
 				    <a th:href="@{/salaSeleccionada/}+${sala.id}" class="btn btn-warning">Ingresar</a>
 				  </div>
 				</div>
 			</div>
-												
+			
+			
+											
 		</div>
+		<br>
+		<div class="row gy-3 my-3">
+		<div th:each=" piso : ${pisos} " class="col-sm-6 col-md-4 col-lg-3 ">
+				<div class="card">
+				  <div class="card-header"><b th:text="'PISO N°' + ${piso.nuperoPiso}"></b></div>
+				  <div class="card-body">
+				   <p class="card-text">
+				    Encargado:<h6 th:text="${piso.encargado}"></h6>
+				    </p>
+				    
+				    <a th:href="@{/piso/}+${piso.id}" class="btn btn-warning">Ingresar</a>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	
 

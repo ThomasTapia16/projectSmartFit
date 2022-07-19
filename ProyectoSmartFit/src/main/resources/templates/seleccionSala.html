@@ -11,29 +11,7 @@
 		
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;" th:text="'Sala número '+${sala.numeroSala}"></h2>
 			
-			<div class="container" th:if="${sala.estado == 'ocupado'}" >
-				<h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Profesores y Clase realizandose. (ESTO SE VE CUANDO LA SALA ESTA OCUPADA)</h3>
-				<ul class="list-group">
-				  <li class="list-group-item list-group-item-warning" aria-current="true">Profesores en la Sala:</li>
-				  <li class="list-group-item">DF</li>
-				  <li class="list-group-item">II</li>
-				  <li class="list-group-item">IM</li>
-				  <li class="list-group-item">PP</li>
-				</ul>
-				
-				<br>
-				<br>
-				
-				<ul class="list-group">
-				  <li class="list-group-item list-group-item-warning" aria-current="true">Clase que se esta realizando:</li>
-				  <li class="list-group-item">ZUMBA</li>
-				</ul>
-				
-				<br>
-				
-				<button class="btn btn-dark" type="submit">Desocupar</button>
-				
-			</div>
+		
 			
 			<br>
 			<br>
@@ -47,7 +25,7 @@
 						<label class="form-label">Profesor:</label>
 					  	<select class="form-select" id="profesor" required th:field="${clase.profesores}"}>
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.nombre+' '+ob.apellido}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -58,9 +36,9 @@
 					</div>
 					<div class="col-md-3" >
 						<label class="form-label">Ayudante N°1:</label>
-					  	<select class="form-select" id="ayudante1" required>
+					  	<select class="form-select" id="ayudante1" required th:field="${clase.profesores}">
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.nombre+' '+ob.apellido}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -71,9 +49,9 @@
 					</div>
 					<div class="col-md-3" >
 						<label class="form-label">Ayudante N°2:</label>
-					  	<select class="form-select" id="ayudante2" required>
+					  	<select class="form-select" id="ayudante2" required th:field="${clase.profesores}">
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.nombre+' '+ob.apellido}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -84,9 +62,9 @@
 					</div>
 					<div class="col-md-3" >
 						<label class="form-label">Ayudante N°3:</label>
-					  	<select class="form-select" id="ayudante3" required>
+					  	<select class="form-select" id="ayudante3" required th:field="${clase.profesores}">
 					    	<option selected disabled value="">Seleccione...</option>
-					    	<option  th:each="ob:${profe}" th:value="${ob.id}" th:text="${ob.nombre+' '+ob.apellido}"></option>
+					    	<option  th:each="ob:${profe}" th:value="${ob.nombre+' '+ob.apellido}" th:text="${ob.nombre+' '+ob.apellido}"></option>
 					  	</select>
 					  	<div class="valid-feedback">
 		                             Correcto
@@ -98,12 +76,7 @@
 					
 					<div class="col-md-4" >
 						<label class="form-label">Clase:</label>
-					  	<select class="form-select" id="clase" required>
-					    	<option selected disabled value="">Seleccione...</option>
-					    	<option> A</option>
-					   		<option> B</option>
-					   		<option> C</option>
-					  	</select>
+					  	<input type="text" class="form-control" id="nombre" value="" required th:field="${clase.nombreClase}">
 					  	<div class="valid-feedback">
 		                             Correcto
 		                         </div>
@@ -120,11 +93,11 @@
 				<br>
 				<br>
 				
-				 <!--  <form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#"> -->
+				  <form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/deshabilitar/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#">
 					
 					<div class="col-md-4">
                         <label  class="form-label">Motivo Deshabilitar Sala:</label>
-                        <input type="textarea" class="form-control" id="motivo" value="">
+                        <input type="textarea" class="form-control" id="motivo" tf:field="${motivo}">
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -135,7 +108,7 @@
 					<br>
 					<button class="btn btn-danger" type="submit">Deshabilitar</button>
 					
-				<!-- </form>-->
+				 </form>
 			</div>
 			
 			
@@ -143,14 +116,34 @@
 				<h1>Hora del almuerzo 🍌,no podemos ocupar esta sala...😫</h1>
 			</div>
 			
-       		<br>
-			<br>
-			
-			<div class="container text-center" th:if="${sala.estado == 'deshabilitada'}">
+       		
+			<form class="row g-3 needs-validation" novalidate method="post" th:action="@{/habilitar/}+${id}" th:object="${sala}" action="#">
+			<div class="container text-center" th:if="${sala.estado == 'deshabilitado'}">
 				<h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">La Sala se encuenta Deshabilitada.</h3>
 				<button class="btn btn-success " type="submit">Habilitar</button>
 			</div>
-			
+			</form>
+			<div class="container" th:if="${sala.estado == 'ocupado'}" >
+			<form class="row g-3 needs-validation" novalidate method="post" th:action="@{/desocuparSala/}+${id}" th:object="${sala}" action="#">
+				<ul class="list-group">
+				  <li class="list-group-item list-group-item-warning" aria-current="true">Profesores en la Sala:</li>
+				  <li class="list-group-item" th:each="ob:${clase.profesores}" th:text="${ob}"></li>
+				  
+				</ul>
+				
+				<br>
+				<br>
+				
+				<ul class="list-group">
+				  <li class="list-group-item list-group-item-warning" aria-current="true">Clase que se esta realizando:</li>
+				  <li class="list-group-item" th:text="${clase.nombreClase}"></li>
+				</ul>
+				
+				<br>
+				
+				<button class="btn btn-dark" type="submit">Desocupar</button>
+				
+			</div>	
        		
           	
                 	

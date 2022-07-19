@@ -29,7 +29,7 @@ public class SuccesHandler implements AuthenticationSuccessHandler{
 			response.sendRedirect("/homeAdmin");
 			
 			
-		}if( roles.contains("ROLE_COL"))
+		}if( roles.contains("ROLE_COL") || roles.contains("ROLE_ENCARGADO"))
 			response.sendRedirect("/home");
 	}
 

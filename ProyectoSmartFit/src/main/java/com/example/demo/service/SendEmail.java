@@ -5,6 +5,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.models.Solicitud;
+
 @Service
 public class SendEmail {
 
@@ -25,6 +27,31 @@ public class SendEmail {
 
         mailSender.send(email);
 
+    }
+    
+    public void sendEmailRechazo(String to,Long id,String motivo)
+    {
+    	SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setTo(to);
+        email.setSubject("Solicitud de ingreso de colaborador al sistema rechazada");
+        email.setText("La solicitud de id: "+id+" ha sido rechazada por el siguiente motivo:"+ motivo);
+
+        mailSender.send(email);
+    }
+    
+    public void sendEmailSolicitud(String to, Solicitud solicitud)
+    {
+    	SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setTo(to);
+        email.setSubject("La solicitud fue enviada con éxito");
+        email.setText("ID de la solicitud:"+solicitud.getId()+
+        		"\nRut:"+solicitud.getRut()+
+        		"\nNombre:"+solicitud.getNombre()+" "+solicitud.getApellido()+
+        		"\nSede:"+solicitud.getSede().getNombre());
+        mailSender.send(email);
+        		
     }
     
 }
