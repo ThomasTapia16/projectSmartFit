@@ -112,6 +112,7 @@ public class MainController extends BaseController{
 		solicitud.setSede(user);
 		solR.save(solicitud);
 		mail.sendEmailSolicitud(user.getCorreo(),solicitud);
+		registro.regitrarEnvioSolicitud(user);
 		return "crearSolicitud";
 	}
 	
@@ -189,13 +190,14 @@ public class MainController extends BaseController{
 	}
 	@PostMapping("/desocuparSala/{id}")
 	public String desocuparSala(@ModelAttribute("clase")Clase clase,@ModelAttribute("sala")EntrenamientoMasivo sala)
-	{	System.out.println(sala.getId());
+{	MyUserDetails user = getLoggedUser();
+		System.out.println(sala.getId());
 		clase  = cr.buscar(sala.getId());
 		sala.setDesocupado();
 		clase.setActivo(false);
 		salaR.save(sala);
 		Cr.save(clase);
-		
+		registro.regitrarDesocuparSala(user, sala);
 		return "redirect:/home";
 	}
 	@GetMapping("/piso/{id}")
@@ -214,19 +216,27 @@ public class MainController extends BaseController{
 	}
 	@PostMapping("/piso/{id}")
 	public String getPiso(@PathVariable("id")Long idPiso,@ModelAttribute("piso")Piso piso) {
+		MyUserDetails user = getLoggedUser();
 		System.out.println(piso.getSede());
 		pisoR.save(piso);
+		registro.asignarEncargados(user, piso);
 		return "redirect:/home";
 	}
 	
-	
-	@PostMapping("salaSeleccionada/deshabilitar/{id}")
-	public String deshabilitar(@PathVariable("id")Long idSala,@ModelAttribute("sala")EntrenamientoMasivo sala,
-			@ModelAttribute("motivo")String motivo)
+	@GetMapping("/deshabilitar/{id}")
+	public String getDeshabilitar(@PathVariable("id")Long idSala, Model model)
 	{
-		System.out.println(motivo);
+		EntrenamientoMasivo sala = emR.getById(idSala);
+		model.addAttribute("sala",sala);
+		return "deshabilitar";
+	}
+	@PostMapping("/deshabilitar/{id}")
+	public String deshabilitar(@PathVariable("id")Long idSala,@ModelAttribute("sala")EntrenamientoMasivo sala)
+	{	
+		MyUserDetails user = getLoggedUser();
+		System.out.println(sala.getMotivoDeshabilitado());
 		sala.setDeshabilitado();
-		
+		registro.deshabilitarSala(user, sala);
 		emR.save(sala);
 		return "redirect:/salaSeleccionada/{id}";
 	}
@@ -250,11 +260,13 @@ public class MainController extends BaseController{
 	}
 	@PostMapping("/habilitar/{id}")
 	public String habilitarSala(@PathVariable("id")Long id)
-	{
+	{	
+		MyUserDetails user = getLoggedUser();
 		EntrenamientoMasivo sala = emR.getById(id);
 		sala.setDesocupado();
-		emR.save(sala);
 		
+		emR.save(sala);
+		registro.habilitarSala(user, sala);
 		return "redirect:/home";
 	}
 	@GetMapping("/loginAdmin")

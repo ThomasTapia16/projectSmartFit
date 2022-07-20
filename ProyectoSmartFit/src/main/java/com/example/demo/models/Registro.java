@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Registro {
@@ -15,6 +17,8 @@ public class Registro {
 	private long id;
 	private String rut;
 	private String nombre;
+
+	private String sede;
 	private String apellido;
 	private String accion;
 	private LocalDate fecha;
@@ -76,6 +80,14 @@ public class Registro {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getSede() {
+		return sede;
+	}
+
+	public void setSede(String sede) {
+		this.sede = sede;
 	}
 	
 }

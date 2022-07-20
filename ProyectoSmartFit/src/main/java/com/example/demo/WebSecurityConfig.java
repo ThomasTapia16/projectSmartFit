@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/agregar_sala_musculacion").access("hasRole('ADMIN') or hasRole('SUPERADMIN')")
         .antMatchers("/agregar_sala_entrenamiento_masivo").access("hasRole('ADMIN') or hasRole('SUPERADMIN') or hasRole('COL')")
         .antMatchers("/agregar_administrador").access("hasRole('SUPERADMIN')")
-        .antMatchers("/agregar_super_administrador").access("hasRole('ADMIN')")
+        .antMatchers("/agregar_super_administrador").access("hasRole('SUPERADMIN')")
             .anyRequest().authenticated()
             .and()
             .formLogin()

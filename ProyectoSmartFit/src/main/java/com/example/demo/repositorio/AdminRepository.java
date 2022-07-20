@@ -8,7 +8,7 @@ import com.example.demo.models.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin,Long>{
 	
-	@Query("SELECT a FROM Admin a WHERE a.rut=:rut")
+	@Query("SELECT a FROM admin a WHERE a.rut=:rut")
 	public Admin getUserByRut(String rut);
 	
 }

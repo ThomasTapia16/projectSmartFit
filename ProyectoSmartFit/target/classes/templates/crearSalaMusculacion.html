@@ -5,6 +5,12 @@
 	
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 	<nav th:replace="plantillas/base :: nav"></nav>
 	<div class="container w-75  mt-5">
 
@@ -12,7 +18,7 @@
 
 			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Registrar Nueva Sala de Musculación</h2>
 			
-			<form class="row g-3 needs-validation" method="POST" novalidate th:action="@{/crearSalaMusculacion}" th:object="${sala}" action="#"> 
+			<form class="row g-3 needs-validation" method="POST" novalidate th:action="@{/agregar_sala_musculacion}" th:object="${sala}" action="#"> 
 
                  <div class="col-md-4">
                             <label class="form-label">Región</label>
@@ -68,7 +74,7 @@
                         
                                                                         
                         <div class="col-12">
-                          <button class="btn btn-dark" type="submit">Registrar</button>
+                          <button class="btn btn-warning" id="botonform" type="submit">Registrar</button>
                         </div>
             </form>
 

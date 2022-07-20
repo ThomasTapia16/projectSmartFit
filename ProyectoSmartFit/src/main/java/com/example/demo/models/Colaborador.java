@@ -31,5 +31,9 @@ public class Colaborador extends User{
 	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
+	public void hacerEncargado()
+	{
+		this.rol = "ROLE_ENCARGADO";
+	}
 	
 }

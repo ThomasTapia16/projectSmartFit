@@ -59,5 +59,9 @@ public class SuperAdminDetails implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	public long getId()
+	{
+		return superAdmin.getId();
+	}
 
 }

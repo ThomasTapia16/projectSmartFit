@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head th:replace="plantillas/base :: head">
+<meta charset='utf-8'>
+</head>
+<body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
+<nav th:replace="plantillas/base :: nav"></nav>
+		
+	<div class="container">		
+		<div class="row gy-3 my-3">
+		
+		<div sec:authorize="hasRole('SUPERADMIN') || hasRole('ADMIN')"class="container w-75  mt-5  ">
+		<div class="col bg-white p-5 rounded table-responsive">
+			<h2 class="fw-bold text-center py5" style="margin-bottom: 2rem;"> Generar historial de auditoria por sede</h2>
+			
+			  	<div class="col-md-3" >
+			  	<form class="row g-3 needs-validation"  novalidate th:action"@{/auditoria/}" action="">
+						<label class="form-label">Sede:</label>
+					  	<select class="form-select" id="nombresede" name="nombresede" required th:fiedl="${nombresede}">
+					    	<!--<option selected disabled value="">Seleccione...</option>-->
+					    	<option  th:each="ob:${sedes}" th:value="${ob.nombre}" th:text="${ob.nombre}"></option>
+					  	</select>
+					  	<br>
+					  	 <button class="btn btn-warning" id="botonform" type="submit">Generar</button>
+					  	 
+			  	</form>
+			  	
+					</div>
+					<br>
+			<table class="table table-hover table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">rut</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Acción</th>
+						<th scope="col">fecha</th>
+						<th scope="col">hora</th>
+						
+						
+					</tr>
+				</thead>
+				
+				<tbody >
+					<tr th:each="registro : ${registros}">
+						<th th:text="${registro.id}"></th>
+						<td th:text="${registro.rut}"></td>
+						<td th:text="${registro.nombre}"></td>
+						<td th:text="${registro.apellido}"></td>
+						
+						<td th:text="${registro.accion}"></td>
+						<td th:text="${registro.fecha}"></td>
+						<td th:text="${registro.hora}"></td>
+						
+						
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	
+
+<script th:fragment = "script" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

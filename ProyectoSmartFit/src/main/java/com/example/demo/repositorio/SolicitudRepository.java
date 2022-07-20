@@ -11,6 +11,6 @@ import com.example.demo.models.Solicitud;
 @Repository
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long>{
 	
-	@Query("SELECT s FROM Solicitud s WHERE s.estado:=a")
+	@Query("SELECT s FROM solicitud s WHERE s.estado:=a")
 	List<Solicitud> findByEstado(boolean a);
 }

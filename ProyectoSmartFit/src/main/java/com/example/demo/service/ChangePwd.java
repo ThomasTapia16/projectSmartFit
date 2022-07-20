@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.models.Admin;
 import com.example.demo.models.Colaborador;
+import com.example.demo.models.SuperAdmin;
 
 @Service
 public class ChangePwd {
@@ -10,7 +12,8 @@ public class ChangePwd {
 	public String pwd;
 	public String pwd2;
 	private Colaborador col;
-	
+	private SuperAdmin sa;
+	private Admin a;
 	ChangePwd()
 	{
 		
@@ -41,5 +44,17 @@ public class ChangePwd {
 			return true;
 		}
 		else {return false;}
+	}
+	public SuperAdmin getSa() {
+		return sa;
+	}
+	public void setSa(SuperAdmin sa) {
+		this.sa = sa;
+	}
+	public Admin getA() {
+		return a;
+	}
+	public void setA(Admin a) {
+		this.a = a;
 	}
 }

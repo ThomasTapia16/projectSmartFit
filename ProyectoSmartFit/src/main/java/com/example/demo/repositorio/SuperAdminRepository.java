@@ -7,6 +7,6 @@ import com.example.demo.models.SuperAdmin;
 
 public interface SuperAdminRepository extends JpaRepository<SuperAdmin,Long>{
 	
-	@Query("SELECT sa FROM SuperAdmin sa WHERE sa.rut=:rut")
+	@Query("SELECT sa FROM super_admin sa WHERE sa.rut=:rut")
 	public SuperAdmin getUserByRut(String rut);
 }

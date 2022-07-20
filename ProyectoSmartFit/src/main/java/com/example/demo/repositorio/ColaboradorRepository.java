@@ -10,11 +10,11 @@ import com.example.demo.models.Colaborador;
 
 @Repository
 public interface ColaboradorRepository extends JpaRepository<Colaborador,Long>{
-	@Query("SELECT c FROM Colaborador c WHERE c.rut=:rut")
+	@Query("SELECT c FROM colaborador c WHERE c.rut=:rut")
 	public Colaborador getUserByRut(String rut);
 	
 	//@Query("SELECT c.rut FROM Colaborador c")
 	//List<Object[]> findAllRut();
-	@Query( value = "SELECT * FROM Colaborador c WHERE c.sede_id:=id")
+	@Query( value = "SELECT * FROM colaborador c WHERE c.sede_id:=id")
 	List<Colaborador> getUserBySede_Id(long id);
 }

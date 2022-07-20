@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.AdminDetails;
+import com.example.demo.MyUserDetails;
 import com.example.demo.SuperAdminDetails;
 import com.example.demo.models.Admin;
 import com.example.demo.models.Colaborador;
@@ -25,11 +27,14 @@ import com.example.demo.models.Rechazo;
 import com.example.demo.models.Sala;
 import com.example.demo.models.Sede;
 import com.example.demo.models.Solicitud;
+import com.example.demo.models.SuperAdmin;
+import com.example.demo.repositorio.AdminRepository;
 import com.example.demo.repositorio.ColaboradorRepository;
 import com.example.demo.repositorio.PisoRepository;
 import com.example.demo.repositorio.SalaRepository;
 import com.example.demo.repositorio.SedeRepository;
 import com.example.demo.repositorio.SolicitudRepository;
+import com.example.demo.repositorio.SuperAdminRepository;
 import com.example.demo.service.ChangePwd;
 
 import com.example.demo.service.PasswordEncrypter;
@@ -63,7 +68,12 @@ public class AdminController extends BaseController{
 	PasswordEncrypter encripter;
 	@Autowired
 	validadorRut vR;
-	
+	@Autowired
+	ChangePwd changeP;
+	@Autowired
+	SuperAdminRepository saR;
+	@Autowired
+	AdminRepository aR;
 /*------------------------------------GET MAPPING-----------------------------------------------*/	
 	@GetMapping("/agregar_colaborador")
 	public String crearColaborador(Model model)
@@ -144,6 +154,56 @@ public class AdminController extends BaseController{
 		return json;
 	}
 /*-------------------------------------POST MAPPING--------------------------------------------*/
+	@GetMapping("/cambio_contraseña_admin")
+ 	public String cambioPWDADMIN(Model model)
+ 	{
+		AdminDetails user = getLoggedA();
+		Admin a = aR.getById(user.getId());
+		changeP.setA(a);
+		model.addAttribute("changeP", changeP);
+		
+	
+		return "cambiopwda";
+ 	}
+ 	@GetMapping("/cambio_contraseña_superadmin")
+ 	public String cambioPWDSUPERADMIN(Model model)
+ 	{
+ 		SuperAdminDetails user = getLoggedSA();
+		SuperAdmin sa = saR.getById(user.getId());
+		changeP.setSa(sa);
+		model.addAttribute("changeP", changeP);
+		
+	
+		return "cambiopwdsa";
+ 	}
+ 	@PostMapping("/cambio_contraseña_admin")
+ 	public String changepwda(@ModelAttribute("changeP")ChangePwd cP)
+ 	{
+ 		AdminDetails user = getLoggedA();
+ 		Admin sa = aR.getById(user.getId());
+ 		if(cP.ooh()==true)
+		{
+			
+		
+			sa.setPassword(encripter.encirptador(cP.pwd));
+			aR.save(sa);
+		}
+ 		return "redirect:/homeAdmin";
+ 	}
+ 	@PostMapping("/cambio_contraseña_superadmin")
+ 	public String changepwdsa(@ModelAttribute("changeP")ChangePwd cP)
+ 	{	
+ 		SuperAdminDetails user = getLoggedSA();
+ 		SuperAdmin sa = saR.getById(user.getId());
+ 		if(cP.ooh()==true)
+		{
+			
+		
+			sa.setPassword(encripter.encirptador(cP.pwd));
+			saR.save(sa);
+		}
+ 		return "redirect:/homeAdmin";
+ 	}
 	@PostMapping("/agregar_sede")
 	public String saveSede(@ModelAttribute("sede") Sede sede)
 	{
@@ -174,7 +234,10 @@ public class AdminController extends BaseController{
 		col.setPassword(encripter.encirptador(col.getPassword()));
 		System.out.println(col.getPassword());
 		Sede sede = sedeR.getById(col.getSede().getId());
-		
+		if(col.isEs_encargado() == true)
+		{
+			col.hacerEncargado();
+		}
 		List<Colaborador> addcol = new ArrayList();
 		addcol.add(col);
 		
@@ -188,6 +251,19 @@ public class AdminController extends BaseController{
 		}
 		return "redirect:/agregar_colaborador";
 	}
+	@PostMapping("/agregar_sala_musculacion")
+ 	public String saveMusculacion(@ModelAttribute("sala") Musculacion sala,
+			@ModelAttribute("sede")Sede sede, @ModelAttribute("piso")Piso piso)
+ 	{
+		Sede sedeF = sedeR.getById(sedeR.idSede(sede.getNombre()));
+		
+		Piso pisoSala =  pisoR.getById(pisoR.findPiso(sedeF.getId(), piso.getNuperoPiso()));
+		sala.setPiso(pisoSala);
+		salaR.save(sala);
+		
+		sedeR.save(sedeF);
+		return "redirect:/agregar_sala_musculacion";
+ 	}
 	@PostMapping("/agregar_sala_entrenamiento_masivo")
 	public String saveSEM(@ModelAttribute("sala") EntrenamientoMasivo sala,
 			@ModelAttribute("sede")Sede sede, @ModelAttribute("piso")Piso piso)
@@ -222,30 +298,25 @@ public class AdminController extends BaseController{
 	}
 	
 	@GetMapping("/rechazado/{id}")
-	public String getRechazado(@PathVariable("id")Long idSoli, Model model) {
+	public String getRechazado(@PathVariable("id")Long idSoli,Model model) {
 		
-		Solicitud soli = sol.getById(idSoli);
+		
 		Rechazo rechazo = new Rechazo();
+		Solicitud soli = sol.getById(idSoli);
 		model.addAttribute("solicitud",soli);
 		model.addAttribute("rechazo",rechazo);
-		model.addAttribute("correo",soli.getCorreoEncargadoSede());
-		model.addAttribute("id",soli.getId());
-		System.out.println(soli.getCorreoEncargadoSede());
+		
+		
 		return "rechazado";
 		
 	}
 	@PostMapping("/rechazado/{id}")
-	public String rechazarSolicitud(@ModelAttribute("solicitud")Solicitud soli,
-			@ModelAttribute("rechazo") Rechazo rechazo,
-			@ModelAttribute("correo")String correo,
-			@ModelAttribute("id")Long id) {
+	public String rechazarSolicitud(@PathVariable("id")Long idSoli,@ModelAttribute("rechazo")Rechazo rechazo,@ModelAttribute("soli")Solicitud soli) {
 		
-		
-		System.out.println(correo);
-		mail.sendEmailRechazo(correo, id, rechazo.getMotivo());
-		soli.solicitudProcesada();
-		sol.save(soli);
-		System.out.println(rechazo.getMotivo());
+		Solicitud solic = sol.getById(idSoli);
+		mail.sendEmailRechazo(solic.getCorreoEncargadoSede(), idSoli, rechazo.getMotivo());
+		solic.setEstado(false);
+		sol.save(solic);
 		return "redirect:/homeAdmin";
 	}
 	@GetMapping("/aceptado/{id}")

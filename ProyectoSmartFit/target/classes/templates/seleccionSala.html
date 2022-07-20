@@ -4,6 +4,12 @@
 <meta charset='utf-8'>
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 <nav th:replace="plantillas/base :: nav"></nav>
 	
 	<div class="container w-75 mt-5" style="margin-bottom: 40px;">
@@ -13,10 +19,9 @@
 			
 		
 			
-			<br>
-			<br>
+		
 			
-			<div class="container" th:if="${sala.estado == 'desocupado' && !hora.equals('15')}">
+			<div  class="container" th:if="${sala.estado == 'desocupado' && !hora.equals('15')}" >
 				<form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#">
 				
 					<label><h3 class="fw-bold text-center py5" style="margin-bottom: 1rem;">Ingresar Profesores y Asignar Clase.</h3></label>
@@ -83,32 +88,24 @@
 					  	<div class="invalid-feedback">
 					    	Please select a valid state.
 					  	</div>
-					</div>
-					
-					<div class="col-12">
-	                	<button class="btn btn-dark" type="submit">Ocupar</button>
+					</div>	
+					<div >
+	                	<button class="btn btn-warning" id="botonform" type="submit">Ocupar</button>
+	                	
 	                </div>                               
 				</form>
-				
 				<br>
+								
+
+				<div>
+				<a th:href="@{/deshabilitar/}+${sala.id}" class="btn btn-danger">Deshabilitar</a>
+				</div>
 				<br>
+					
+					
+					
+					
 				
-				  <form class="row g-3 needs-validation" novalidate method="post" th:action="@{/salaSeleccionada/deshabilitar/}+${sala.id}" th:object="${clase}" th:field="${sala.piso = piso}" action="#">
-					
-					<div class="col-md-4">
-                        <label  class="form-label">Motivo Deshabilitar Sala:</label>
-                        <input type="textarea" class="form-control" id="motivo" tf:field="${motivo}">
-                        <div class="valid-feedback">
-                            Correcto!
-                        </div>
-                        <div class="invalid-feedback">
-                            Ingrese datos validos
-                        </div>
-                    </div>
-					<br>
-					<button class="btn btn-danger" type="submit">Deshabilitar</button>
-					
-				 </form>
 			</div>
 			
 			
@@ -131,15 +128,12 @@
 				  
 				</ul>
 				
-				<br>
-				<br>
+
 				
 				<ul class="list-group">
 				  <li class="list-group-item list-group-item-warning" aria-current="true">Clase que se esta realizando:</li>
 				  <li class="list-group-item" th:text="${clase.nombreClase}"></li>
 				</ul>
-				
-				<br>
 				
 				<button class="btn btn-dark" type="submit">Desocupar</button>
 				

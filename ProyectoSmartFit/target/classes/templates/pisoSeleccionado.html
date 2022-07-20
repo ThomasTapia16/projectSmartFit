@@ -4,6 +4,12 @@
 <meta charset='utf-8'>
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 <nav th:replace="plantillas/base :: nav"></nav>
 	
 	<div class="container w-75 mt-5" style="margin-bottom: 40px;">
@@ -36,7 +42,7 @@
 					  	<br>
 					  	<br>
 					<div class="col-12">
-	                	<button class="btn btn-dark" type="submit">Asignar</button>
+	                	<button class="btn btn-warning" id="botonform" type="submit">Asignar</button>
 	                </div>   
 					
           	</form>

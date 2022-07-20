@@ -71,7 +71,8 @@ public abstract class Sala {
 		this.estado = "ocupado";
 	}
 	public void setDesocupado()
-	{
+	{	
+		this.motivoDeshabilitado = null;
 		this.estado = "desocupado";
 	}
 	

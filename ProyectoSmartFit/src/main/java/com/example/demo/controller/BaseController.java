@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.example.demo.AdminDetails;
 import com.example.demo.MyUserDetails;
 import com.example.demo.SuperAdminDetails;
 
@@ -11,6 +12,9 @@ public abstract class BaseController {
     }
 	protected SuperAdminDetails getLoggedSA() {
         return (SuperAdminDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+	protected AdminDetails getLoggedA() {
+        return (AdminDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 	
 }

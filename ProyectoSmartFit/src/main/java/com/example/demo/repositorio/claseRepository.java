@@ -9,7 +9,7 @@ import com.example.demo.models.Clase;
 
 public interface claseRepository extends JpaRepository<Clase,Long>{
 	
-	@Query(value = "SELECT  c FROM Clase c WHERE c.activo=1 AND c.sala_id=:sala")
+	@Query(value = "SELECT  c FROM clase c WHERE c.activo=1 AND c.sala_id=:sala")
 	List<Clase> findClaseBySalaId(long sala);
 
 }

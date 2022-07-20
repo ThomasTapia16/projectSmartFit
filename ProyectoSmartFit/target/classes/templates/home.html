@@ -4,6 +4,12 @@
 <meta charset='utf-8'>
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 <nav th:replace="plantillas/base :: nav"></nav>
 		
 	<div class="container">		
@@ -46,23 +52,28 @@
 			</table>
 		</div>
 	</div>
-		
+	<div sec:authorize="hasRole('COL') || hasRole('ENCARGADO')">
+		<h3 style="color: #FCB823;">Salas de entrenamiento masivo</h3>
+		<div class="row gy-3 my-3">
 			<div th:each=" sala : ${salas} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">
+				
 				  <div class="card-header"><b th:text="'SALA N°' + ${sala.numeroSala}"></b><img th:src="@{img/}+${sala.estado}+'.jpeg'" align="right"  width="40" height="40"></div>
 				  <div class="card-body">
 				   <p class="card-text" th:if="${sala.estado == 'deshabilitado'}">
 				    Motivo:<h6 th:text="${sala.motivoDeshabilitado}"></h6>
 				    </p>
-				    <a th:href="@{/salaSeleccionada/}+${sala.id}" class="btn btn-warning">Ingresar</a>
+				    <a th:href="@{/salaSeleccionada/}+${sala.id}" class="btn btn-warning" id="botonform">Ingresar</a>
 				  </div>
 				</div>
 			</div>
 			
-			
+	</div>
 											
 		</div>
-		<br>
+		<div sec:authorize="hasRole('COL') || hasRole('ENCARGADO')">
+		<h3 style="color: #FCB823;">Pisos </h3>
+		
 		<div class="row gy-3 my-3">
 		<div th:each=" piso : ${pisos} " class="col-sm-6 col-md-4 col-lg-3 ">
 				<div class="card">
@@ -72,12 +83,12 @@
 				    Encargado:<h6 th:text="${piso.encargado}"></h6>
 				    </p>
 				    
-				    <a th:href="@{/piso/}+${piso.id}" class="btn btn-warning">Ingresar</a>
+				    <a th:href="@{/piso/}+${piso.id}" class="btn btn-warning" id="botonform">Ingresar</a>
 				  </div>
 				</div>
 			</div>
 		</div>
-		
+		</div>
 	</div>
 	
 

@@ -60,5 +60,9 @@ public class AdminDetails implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	public long getId()
+	{
+		return administrador.getId();
+	}
 
 }

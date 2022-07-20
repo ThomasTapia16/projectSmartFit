@@ -7,6 +7,12 @@
 <script th:src="@{C:\Users\thoma\projectSmartFit\ProyectoSmartFit\src\main\resources\static\js\dropcascade.js}"></script>
 </head>
 <body>
+<style>
+#botonform:hover{
+	background: #1C1F23;
+	color: #FFFFFF;
+}
+</style>
 	<nav th:replace="plantillas/base :: nav"></nav>
 	<div class="container w-75  mt-5">
 
@@ -70,7 +76,7 @@
                         
                                                                         
                         <div class="col-12">
-                          <button class="btn btn-dark" type="submit">Registrar</button>
+                          <button class="btn btn-warning" id="botonform" type="submit">Registrar</button>
                         </div>
             </form>
 
