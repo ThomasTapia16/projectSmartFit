@@ -35,9 +35,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <!--  -->
                 <ul  class="navbar-nav" sec:authorize="hasRole('SUPERADMIN') || hasRole('ADMIN')" >
-                    <li>
+                <li>
                         <a href="agregar_colaborador" class="nav-link" style="color:#FCB823">
                             Agregar Colaborador
+                        </a> 
+                    </li>
+                    <li>
+                        <a href="auditoria" class="nav-link" style="color:#FCB823">
+                            Auditoría
                         </a> 
                     </li>
                     
